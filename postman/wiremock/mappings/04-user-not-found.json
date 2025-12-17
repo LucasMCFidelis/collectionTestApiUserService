@@ -2,7 +2,7 @@
   "priority": 10,
   "request": {
     "method": "ANY",
-    "urlPathPattern": "/users/.*",
+    "urlPathPattern": "/users.*",
     "headers": {
       "X-Mock-Scenario": {
         "equalTo": "USER_NOT_FOUND"
@@ -13,7 +13,7 @@
     "status": 404,
     "jsonBody": {
       "error": "Erro Not Found",
-      "message": "Nenhum usuário encontrado com este email"
+      "message": "Usuário não encontrado"
     }
   }
 }

@@ -1,0 +1,33 @@
+{
+  "priority": 5,
+  "request": {
+    "method": "GET",
+    "urlPath": "/users",
+    "queryParameters": {
+      "userEmail": {
+        "matches": ".+"
+      }
+    },
+    "headers": {
+      "X-Mock-Scenario": {
+        "equalTo": "SUCCESS_GET_USER"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "userId": "74c45773-8c04-4382-9c38-16ea78c34f79",
+      "firstName": "Mocked",
+      "lastName": "User",
+      "email": "{{request.query.userEmail}}",
+      "phoneNumber": "33333333333",
+      "role": {
+        "roleId": 2,
+        "roleName": "User",
+        "roleDescription": "Pode consultar e visualizar itens"
+      }
+    },
+    "transformers": ["response-template"]
+  }
+}
