@@ -2171,49 +2171,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade userId\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"userId\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade firstName\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade lastName\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade email\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"email\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade phoneNumber\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleId em role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleId\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleName em role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleName\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleDescription em role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleDescription\")\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade firstName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade lastName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade email\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"email\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleId em role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleName em role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleName\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleDescription em role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleDescription\")\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -2251,50 +2221,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade userId\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"userId\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade firstName\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade lastName\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade email\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"email\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade phoneNumber\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleId em role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleId\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleName em role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleName\")\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleDescription em role\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleDescription\")\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade firstName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade lastName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade email\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"email\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleId em role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleName em role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleName\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleDescription em role\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"role\").to.have.property(\"roleDescription\")\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -2312,14 +2251,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{user_service_url}}?userEmail=lucasm241301@gmail.com",
+              "raw": "{{user_service_url}}?userEmail={{userRecentCadastreEmail}}",
               "host": [
                 "{{user_service_url}}"
               ],
               "query": [
                 {
                   "key": "userEmail",
-                  "value": "lucasm241301@gmail.com"
+                  "value": "{{userRecentCadastreEmail}}"
                 }
               ]
             }
@@ -2539,72 +2478,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade userId\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"userId\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade userEmail\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"userEmail\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade roleName\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"roleName\");\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\");\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userEmail\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userEmail\");\r\n});\r\n\r\npm.test(\"Deve validar a propriedade roleName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"roleName\");\r\n});\r\n"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -2623,7 +2509,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"userEmail\": \"horacio.barton@gmail.com\",\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"userEmail\": \"{{userRecentCadastreEmail}}\",\r\n    \"passwordProvided\": \"{{userRecentCadastrePassword}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2704,67 +2590,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 401\", function () {\r",
-                  "    pm.response.to.have.status(401);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Credenciais inválidas\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Credenciais inválidas\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -2773,7 +2611,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"userEmail\": \"horacio.barton@gmail.com\",\r\n    \"passwordProvided\": \"{2324124@123\"\r\n}",
+              "raw": "{\r\n    \"userEmail\": \"{{userRecentCadastreEmail}}\",\r\n    \"passwordProvided\": \"{2324124@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3017,13 +2855,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -3056,26 +2900,15 @@
           "response": []
         },
         {
-          "name": "Deletar usuário inexistente",
+          "name": "Deletar usuário com id diferente do usuário logado",
           "event": [
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 404\", function () {\r",
-                  "    pm.response.to.have.status(404);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Usuário não encontrado\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 403\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Acesso negado. O ID do usuário logado não corresponde ao ID solicitado para a operação\"));\r\n});"
+                ]
               }
             }
           ],
@@ -3085,7 +2918,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{adminToken}}",
+                  "value": "{{userRecentCadastreToken}}",
                   "type": "string"
                 }
               ]
@@ -3113,22 +2946,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"O id não pode ser vazio\").toLowerCase());\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"O id não pode ser vazio\").toLowerCase());\r\n});\r\n"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -3138,7 +2968,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{adminToken}}",
+                  "value": "{{userRecentCadastreToken}}",
                   "type": "string"
                 }
               ]
@@ -3312,59 +3142,124 @@
     {
       "listen": "prerequest",
       "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
         "exec": [
-          "function isTokenExpired(token) {\r",
-          "    try {\r",
-          "        const payload = JSON.parse(atob(token.split('.')[1]));\r",
-          "        const now = Math.floor(Date.now() / 1000);\r",
-          "        return payload.exp < now;\r",
-          "    } catch (e) {\r",
-          "        return true;\r",
+          "function use(fnName) {\r",
+          "    const raw = pm.collectionVariables.get(fnName);\r",
+          "    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+          "    return eval(`(${raw})`);\r",
+          "}\r",
+          "\r",
+          "function createSimpleUserRequest(attempt = 1) {\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\") {\r",
+          "        console.log(\"🟡 Modo mock ativo — pulando criação real de usuário\");\r",
+          "\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreEmail\", \"mock.user@test.com\");\r",
+          "        pm.collectionVariables.set(\"userRecentCadastrePassword\", \"Password@123\");\r",
+          "\r",
+          "        return;\r",
           "    }\r",
-          "}\r",
           "\r",
-          "const token = pm.environment.get(\"adminToken\");\r",
+          "    const password = \"{Password@123\";\r",
           "\r",
-          "if (!token || isTokenExpired(token)) {\r",
-          "    console.log(\"Token ausente ou expirado. Realizando login...\");\r",
+          "    // Limite de tentativas\r",
+          "    if (attempt > 5) {\r",
+          "        console.error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
+          "        return;\r",
+          "    }\r",
           "\r",
-          "    pm.sendRequest({\r",
-          "        url: pm.environment.get('auth_service_url') + '/login',\r",
-          "        method: 'POST',\r",
-          "        header: {\r",
-          "            'Content-Type': 'application/json'\r",
+          "    console.log(`🔄 Tentativa ${attempt} de criar usuário simples...`);\r",
+          "\r",
+          "    pm.sendRequest(\r",
+          "        {\r",
+          "            url: pm.environment.get(\"user_service_url\"),\r",
+          "            method: \"POST\",\r",
+          "            header: { \"Content-Type\": \"application/json\" },\r",
+          "            body: {\r",
+          "                mode: \"raw\",\r",
+          "                raw: JSON.stringify({\r",
+          "                    firstName: pm.variables.replaceIn(\"{{$randomWord}}\"),\r",
+          "                    lastName: `${pm.variables.replaceIn(\"{{$randomWord}}\")} ${pm.variables.replaceIn(\"{{$randomWord}}\")}`,\r",
+          "                    email: pm.variables.replaceIn(\"{{$randomEmail}}\"),\r",
+          "                    password,\r",
+          "                }),\r",
+          "            },\r",
           "        },\r",
-          "        body: {\r",
-          "            mode: 'raw',\r",
-          "            raw: JSON.stringify({\r",
-          "                userEmail: 'teste@example.com',\r",
-          "                passwordProvided: '@JMKIoowD03#'\r",
-          "            })\r",
-          "        }\r",
-          "    }, function (err, res) {\r",
-          "        if (!err) {\r",
+          "        (err, res) => {\r",
+          "            if (err) {\r",
+          "                console.warn(`⚠ Erro na tentativa ${attempt}, tentando novamente...`);\r",
+          "                return createSimpleUserRequest(attempt + 1);\r",
+          "            }\r",
+          "\r",
           "            const json = res.json();\r",
-          "            pm.environment.set(\"adminToken\", json.userToken);\r",
-          "        } else {\r",
-          "            console.log(\"Erro ao fazer login de admin:\", err);\r",
+          "\r",
+          "            // Se criou, salva variáveis\r",
+          "            if (json?.userId) {\r",
+          "                console.log(\"✅ Usuário criado com sucesso:\", json.userId);\r",
+          "\r",
+          "                pm.collectionVariables.set(\"userRecentCadastreId\", json.userId);\r",
+          "                pm.collectionVariables.set(\"userRecentCadastreEmail\", json.email);\r",
+          "                pm.collectionVariables.set(\"userRecentCadastrePassword\", password);\r",
+          "                pm.collectionVariables.set(\"userRecentCadastreToken\", json.userToken);\r",
+          "                return;\r",
+          "            }\r",
+          "\r",
+          "            // Tentativa falhou mesmo sem erro → repetir\r",
+          "            console.warn(`⚠ Tentativa ${attempt} falhou, tentando novamente...`);\r",
+          "            return createSimpleUserRequest(attempt + 1);\r",
           "        }\r",
-          "    });\r",
+          "    );\r",
           "}\r",
           "\r",
+          "function deleteSimpleUserRequest(token, userId) {\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\") {\r",
+          "        console.log(\"🟡 Modo mock ativo — pulando delete de usuário\");\r",
+          "        return;\r",
+          "    }\r",
+          "    if (!token || !userId) {\r",
+          "        console.warn(\"⚠ Token ou userId não informado — ignorando\");\r",
+          "        return;\r",
+          "    }\r",
           "\r",
-          "function login(email, password) {\r",
+          "    pm.sendRequest(\r",
+          "        {\r",
+          "            url: `${pm.environment.get(\"user_service_url\")}?userId=${userId}`,\r",
+          "            method: \"DELETE\",\r",
+          "            header: {\r",
+          "                \"Authorization\": `Bearer ${token}`,\r",
+          "            },\r",
+          "        },\r",
+          "        (err, res) => {\r",
+          "            if (err) {\r",
+          "                console.error(\"❌ Erro no DELETE:\", err);\r",
+          "                return;\r",
+          "            }\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastreEmail\");\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastrePassword\");\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastreToken\");\r",
+          "        }\r",
+          "    );\r",
+          "}\r",
+          "\r",
+          "function performLogin(email, password, scenario, tokenVarName = \"adminToken\") {\r",
           "    if (!email || !password) {\r",
           "        console.error(\"❌ email ou password não informados\");\r",
+          "        return;\r",
+          "    }\r",
+          "\r",
+          "    const headers = {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    };\r",
+          "\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
+          "        headers[\"x-mock-scenario\"] = scenario;\r",
           "    }\r",
           "\r",
           "    pm.sendRequest(\r",
           "        {\r",
           "            url: `${pm.environment.get(\"auth_service_url\")}/login`,\r",
           "            method: \"POST\",\r",
-          "            header: { \"Content-Type\": \"application/json\" },\r",
+          "            header: headers,\r",
           "            body: {\r",
           "                mode: \"raw\",\r",
           "                raw: JSON.stringify({\r",
@@ -3376,29 +3271,60 @@
           "        (err, res) => {\r",
           "            if (err) {\r",
           "                console.error(\"❌ Erro no login:\", err);\r",
+          "                return;\r",
           "            }\r",
+          "\r",
           "            const json = res.json();\r",
+          "\r",
           "            if (json?.userToken) {\r",
-          "                pm.collectionVariables.set(\"adminToken\", json.userToken)\r",
-          "                return\r",
+          "                pm.collectionVariables.set(tokenVarName, json.userToken);\r",
+          "                console.log(`✅ Token salvo em \"${tokenVarName}\"`);\r",
+          "                return;\r",
           "            }\r",
-          "            console.error(\"❌ Token não retornado\");\r",
+          "\r",
+          "            console.error(\"❌ Token não retornado\", json);\r",
           "        }\r",
           "    );\r",
-          "}"
-        ]
+          "}\r",
+          "\r",
+          "\r",
+          "pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
+          "pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
+          "pm.collectionVariables.set(performLogin.name, performLogin.toString());\r",
+          ""
+        ],
+        "type": "text/javascript"
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "createSimpleUserRequest",
+      "value": ""
     },
     {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [
-          ""
-        ]
-      }
+      "key": "deleteSimpleUserRequest",
+      "value": ""
+    },
+    {
+      "key": "performLogin",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastreId",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastreEmail",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastrePassword",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastreToken",
+      "value": ""
     }
   ]
 }
