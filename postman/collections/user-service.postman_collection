@@ -16,29 +16,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 201\", function () {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "    // pm.environment.set(\"userRecentCadastreId\", pm.response.json().userId)\r",
-                  "    // pm.environment.set(\"userRecentCadastreToken\", pm.response.json().userToken)\r",
-                  "    // pm.environment.set(\"userRecentCadastreEmail\", pm.response.json().email)\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst requestData = JSON.parse(pm.request.body.raw);\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade firstName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r\n    pm.expect(pm.response.json().firstName).to.eq(requestData.firstName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade lastName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r\n    pm.expect(pm.response.json().lastName).to.eq(requestData.lastName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade email, e que ela é padronizada em minúsculo\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"email\")\r\n    pm.expect(pm.response.json().email).to.eq(requestData.email.toLowerCase())\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r\n    pm.expect(pm.response.json().phoneNumber).to.eq(requestData.phoneNumber)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userToken\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userToken\")\r\n});\r\n"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "pm.environment.set(\"userRecentCadastrePassword\", \"{Password@123\")"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -47,7 +37,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{{userRecentCadastrePassword}}\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -69,58 +59,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 201\", function () {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst requestData = JSON.parse(pm.request.body.raw);\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade firstName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r\n    pm.expect(pm.response.json().firstName).to.eq(requestData.firstName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade lastName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r\n    pm.expect(pm.response.json().lastName).to.eq(requestData.lastName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade email, e que ela é padronizada em minúsculo\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"email\")\r\n    pm.expect(pm.response.json().email).to.eq(requestData.email.toLowerCase())\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber é null\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r\n    pm.expect(pm.response.json().phoneNumber).to.eq(null)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userToken\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userToken\")\r\n});\r\n"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -156,65 +107,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Nome não pode estar vazio\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Nome não pode estar vazio\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -245,65 +150,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Nome é obrigatório\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Nome é obrigatório\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -345,7 +204,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r\nconst hour = Math.floor(Math.random() * 24);\r\n\r\n// Gera um minuto aleatório entre 0 e 59\r\nconst minute = Math.floor(Math.random() * 60);\r\n\r\n// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r\nconst formattedHour = hour.toString().padStart(2, '0');\r\nconst formattedMinute = minute.toString().padStart(2, '0');\r\n\r\n// Combina hora e minuto em um horário\r\nconst randomTime = `${formattedHour}:${formattedMinute}`;\r\n\r\n// Armazena o horário em uma variável de ambiente\r\npm.environment.set(\"randomStartTime\", randomTime);\r\n\r\n// Função para gerar uma data aleatória entre duas datas\r\nfunction randomDate(start, end) {\r\n    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r\n    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r\n    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r\n    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r\n    return `${day}/${month}/${year}`; // Retorna a data formatada\r\n}\r\n\r\n// Define as datas de início e fim do intervalo\r\nconst startDate = new Date('2024-01-01');\r\nconst endDate = new Date('2024-12-31');\r\n\r\n// Gera uma data aleatória dentro do intervalo definido\r\nconst generatedDate = randomDate(startDate, endDate);\r\n\r\n// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r\npm.environment.set(\"randomDate\", generatedDate);\r\n"
+                  ""
                 ]
               }
             }
@@ -377,65 +236,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Nome deve possuir no mínimo 3 caracteres\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Nome deve possuir no mínimo 3 caracteres\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -466,65 +279,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Nome deve ser uma string\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Nome deve ser uma string\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -555,65 +322,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Nome deve possuir no mínimo 3 caracteres\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Nome deve possuir no mínimo 3 caracteres\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -649,65 +370,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Sobrenome não pode estar vazio\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Sobrenome não pode estar vazio\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -738,65 +413,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Sobrenome é obrigatório\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Sobrenome é obrigatório\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -827,65 +456,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Nome deve conter apenas caracteres alfabéticos, acentuados e espaços\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Nome deve conter apenas caracteres alfabéticos, acentuados e espaços\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -916,65 +499,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Sobrenome deve possuir no mínimo 5 caracteres\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Sobrenome deve possuir no mínimo 5 caracteres\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1005,65 +542,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Sobrenome deve ser uma string\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Sobrenome deve ser uma string\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1094,65 +585,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Sobrenome deve possuir no mínimo 5 caracteres\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Sobrenome deve possuir no mínimo 5 caracteres\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1188,65 +633,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Email é obrigatório\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email é obrigatório\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1277,65 +676,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Email não pode estar vazio\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email não pode estar vazio\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1366,65 +719,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Email deve ser uma string\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email deve ser uma string\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1455,65 +762,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1544,65 +805,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 409\", function () {\r",
-                  "    pm.response.to.have.status(409);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Este e-mail já está cadastrado\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 409\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Este e-mail já está cadastrado\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1638,65 +853,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Telefone deve ser uma string\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Telefone deve ser uma string\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1727,65 +896,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Telefone deve começar com (+) e conter entre 10 e 15 dígitos numéricos\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Telefone deve começar com (+) e conter entre 10 e 15 dígitos numéricos\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1816,65 +939,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.contain((\"Telefone deve começar com (+) e conter entre 10 e 15 dígitos numéricos\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.contain((\"Telefone deve começar com (+) e conter entre 10 e 15 dígitos numéricos\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1905,64 +982,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 201\", function () {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade phoneNumber\", function () {\r",
-                  "    const jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.have.property(\"phoneNumber\");\r",
-                  "    pm.expect(jsonData.phoneNumber).to.equal(null);\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"phoneNumber\");\r\n    pm.expect(jsonData.phoneNumber).to.equal(null);\r\n});\r\n"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -1998,65 +1030,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Senha não pode estar vazia\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Senha não pode estar vazia\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
@@ -2098,7 +1084,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r\nconst hour = Math.floor(Math.random() * 24);\r\n\r\n// Gera um minuto aleatório entre 0 e 59\r\nconst minute = Math.floor(Math.random() * 60);\r\n\r\n// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r\nconst formattedHour = hour.toString().padStart(2, '0');\r\nconst formattedMinute = minute.toString().padStart(2, '0');\r\n\r\n// Combina hora e minuto em um horário\r\nconst randomTime = `${formattedHour}:${formattedMinute}`;\r\n\r\n// Armazena o horário em uma variável de ambiente\r\npm.environment.set(\"randomStartTime\", randomTime);\r\n\r\n// Função para gerar uma data aleatória entre duas datas\r\nfunction randomDate(start, end) {\r\n    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r\n    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r\n    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r\n    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r\n    return `${day}/${month}/${year}`; // Retorna a data formatada\r\n}\r\n\r\n// Define as datas de início e fim do intervalo\r\nconst startDate = new Date('2024-01-01');\r\nconst endDate = new Date('2024-12-31');\r\n\r\n// Gera uma data aleatória dentro do intervalo definido\r\nconst generatedDate = randomDate(startDate, endDate);\r\n\r\n// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r\npm.environment.set(\"randomDate\", generatedDate);\r\n"
+                  ""
                 ]
               }
             }
@@ -2141,7 +1127,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r\nconst hour = Math.floor(Math.random() * 24);\r\n\r\n// Gera um minuto aleatório entre 0 e 59\r\nconst minute = Math.floor(Math.random() * 60);\r\n\r\n// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r\nconst formattedHour = hour.toString().padStart(2, '0');\r\nconst formattedMinute = minute.toString().padStart(2, '0');\r\n\r\n// Combina hora e minuto em um horário\r\nconst randomTime = `${formattedHour}:${formattedMinute}`;\r\n\r\n// Armazena o horário em uma variável de ambiente\r\npm.environment.set(\"randomStartTime\", randomTime);\r\n\r\n// Função para gerar uma data aleatória entre duas datas\r\nfunction randomDate(start, end) {\r\n    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r\n    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r\n    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r\n    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r\n    return `${day}/${month}/${year}`; // Retorna a data formatada\r\n}\r\n\r\n// Define as datas de início e fim do intervalo\r\nconst startDate = new Date('2024-01-01');\r\nconst endDate = new Date('2024-12-31');\r\n\r\n// Gera uma data aleatória dentro do intervalo definido\r\nconst generatedDate = randomDate(startDate, endDate);\r\n\r\n// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r\npm.environment.set(\"randomDate\", generatedDate);\r\n"
+                  ""
                 ]
               }
             }
@@ -2184,7 +1170,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r\nconst hour = Math.floor(Math.random() * 24);\r\n\r\n// Gera um minuto aleatório entre 0 e 59\r\nconst minute = Math.floor(Math.random() * 60);\r\n\r\n// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r\nconst formattedHour = hour.toString().padStart(2, '0');\r\nconst formattedMinute = minute.toString().padStart(2, '0');\r\n\r\n// Combina hora e minuto em um horário\r\nconst randomTime = `${formattedHour}:${formattedMinute}`;\r\n\r\n// Armazena o horário em uma variável de ambiente\r\npm.environment.set(\"randomStartTime\", randomTime);\r\n\r\n// Função para gerar uma data aleatória entre duas datas\r\nfunction randomDate(start, end) {\r\n    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r\n    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r\n    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r\n    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r\n    return `${day}/${month}/${year}`; // Retorna a data formatada\r\n}\r\n\r\n// Define as datas de início e fim do intervalo\r\nconst startDate = new Date('2024-01-01');\r\nconst endDate = new Date('2024-12-31');\r\n\r\n// Gera uma data aleatória dentro do intervalo definido\r\nconst generatedDate = randomDate(startDate, endDate);\r\n\r\n// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r\npm.environment.set(\"randomDate\", generatedDate);\r\n"
+                  ""
                 ]
               }
             }
@@ -2227,7 +1213,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r\nconst hour = Math.floor(Math.random() * 24);\r\n\r\n// Gera um minuto aleatório entre 0 e 59\r\nconst minute = Math.floor(Math.random() * 60);\r\n\r\n// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r\nconst formattedHour = hour.toString().padStart(2, '0');\r\nconst formattedMinute = minute.toString().padStart(2, '0');\r\n\r\n// Combina hora e minuto em um horário\r\nconst randomTime = `${formattedHour}:${formattedMinute}`;\r\n\r\n// Armazena o horário em uma variável de ambiente\r\npm.environment.set(\"randomStartTime\", randomTime);\r\n\r\n// Função para gerar uma data aleatória entre duas datas\r\nfunction randomDate(start, end) {\r\n    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r\n    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r\n    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r\n    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r\n    return `${day}/${month}/${year}`; // Retorna a data formatada\r\n}\r\n\r\n// Define as datas de início e fim do intervalo\r\nconst startDate = new Date('2024-01-01');\r\nconst endDate = new Date('2024-12-31');\r\n\r\n// Gera uma data aleatória dentro do intervalo definido\r\nconst generatedDate = randomDate(startDate, endDate);\r\n\r\n// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r\npm.environment.set(\"randomDate\", generatedDate);\r\n"
+                  ""
                 ]
               }
             }
@@ -2270,7 +1256,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r\nconst hour = Math.floor(Math.random() * 24);\r\n\r\n// Gera um minuto aleatório entre 0 e 59\r\nconst minute = Math.floor(Math.random() * 60);\r\n\r\n// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r\nconst formattedHour = hour.toString().padStart(2, '0');\r\nconst formattedMinute = minute.toString().padStart(2, '0');\r\n\r\n// Combina hora e minuto em um horário\r\nconst randomTime = `${formattedHour}:${formattedMinute}`;\r\n\r\n// Armazena o horário em uma variável de ambiente\r\npm.environment.set(\"randomStartTime\", randomTime);\r\n\r\n// Função para gerar uma data aleatória entre duas datas\r\nfunction randomDate(start, end) {\r\n    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r\n    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r\n    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r\n    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r\n    return `${day}/${month}/${year}`; // Retorna a data formatada\r\n}\r\n\r\n// Define as datas de início e fim do intervalo\r\nconst startDate = new Date('2024-01-01');\r\nconst endDate = new Date('2024-12-31');\r\n\r\n// Gera uma data aleatória dentro do intervalo definido\r\nconst generatedDate = randomDate(startDate, endDate);\r\n\r\n// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r\npm.environment.set(\"randomDate\", generatedDate);\r\n"
+                  ""
                 ]
               }
             }
@@ -3507,65 +2493,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLocaleLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLocaleLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  ""
+                ]
               }
             }
           ],
