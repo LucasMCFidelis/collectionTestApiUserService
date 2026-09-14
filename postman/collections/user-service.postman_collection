@@ -1743,66 +1743,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Usuário atualizado com sucesso\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Usuário atualizado com sucesso\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
               }
             }
           ],
@@ -1849,66 +1802,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 409\", function () {\r",
-                  "    pm.response.to.have.status(409);\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Este e-mail já está cadastrado\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 409\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Este e-mail já está cadastrado\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest().then((dataUserConflict) => {\r\n    console.log('usuário para conflito criado: ' + dataUserConflict.email)\r\n    pm.collectionVariables.set('conflictEmail', dataUserConflict.email)\r\n\r\n    createSimpleUserRequest().then((dataUser) => {\r\n        console.log('Usuário criado', dataUser)\r\n    })\r\n})"
+                ]
               }
             }
           ],
@@ -1927,7 +1833,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"lucasm241301@gmail.com\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{conflictEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3149,65 +3055,58 @@
           "    return eval(`(${raw})`);\r",
           "}\r",
           "\r",
-          "function createSimpleUserRequest(attempt = 1) {\r",
+          "async function createSimpleUserRequest(attempt = 1) {\r",
           "    if (pm.environment.get(\"useMock\") === \"true\") {\r",
           "        console.log(\"🟡 Modo mock ativo — pulando criação real de usuário\");\r",
-          "\r",
           "        pm.collectionVariables.set(\"userRecentCadastreEmail\", \"mock.user@test.com\");\r",
           "        pm.collectionVariables.set(\"userRecentCadastrePassword\", \"Password@123\");\r",
-          "\r",
           "        return;\r",
           "    }\r",
           "\r",
-          "    const password = \"{Password@123\";\r",
+          "    const password = \"Password@123\";\r",
           "\r",
-          "    // Limite de tentativas\r",
           "    if (attempt > 5) {\r",
-          "        console.error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
-          "        return;\r",
+          "        throw new Error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
           "    }\r",
           "\r",
           "    console.log(`🔄 Tentativa ${attempt} de criar usuário simples...`);\r",
           "\r",
-          "    pm.sendRequest(\r",
-          "        {\r",
-          "            url: pm.environment.get(\"user_service_url\"),\r",
-          "            method: \"POST\",\r",
-          "            header: { \"Content-Type\": \"application/json\" },\r",
-          "            body: {\r",
-          "                mode: \"raw\",\r",
-          "                raw: JSON.stringify({\r",
-          "                    firstName: pm.variables.replaceIn(\"{{$randomWord}}\"),\r",
-          "                    lastName: `${pm.variables.replaceIn(\"{{$randomWord}}\")} ${pm.variables.replaceIn(\"{{$randomWord}}\")}`,\r",
-          "                    email: pm.variables.replaceIn(\"{{$randomEmail}}\"),\r",
-          "                    password,\r",
-          "                }),\r",
+          "    const response = await new Promise((resolve, reject) => {\r",
+          "        pm.sendRequest(\r",
+          "            {\r",
+          "                url: pm.environment.get(\"user_service_url\"),\r",
+          "                method: \"POST\",\r",
+          "                header: { \"Content-Type\": \"application/json\" },\r",
+          "                body: {\r",
+          "                    mode: \"raw\",\r",
+          "                    raw: JSON.stringify({\r",
+          "                        firstName: pm.variables.replaceIn(\"{{$randomWord}}\"),\r",
+          "                        lastName: `${pm.variables.replaceIn(\"{{$randomWord}}\")} ${pm.variables.replaceIn(\"{{$randomWord}}\")}`,\r",
+          "                        email: pm.variables.replaceIn(\"{{$randomEmail}}\"),\r",
+          "                        password,\r",
+          "                    }),\r",
+          "                },\r",
           "            },\r",
-          "        },\r",
-          "        (err, res) => {\r",
-          "            if (err) {\r",
-          "                console.warn(`⚠ Erro na tentativa ${attempt}, tentando novamente...`);\r",
-          "                return createSimpleUserRequest(attempt + 1);\r",
+          "            (err, res) => {\r",
+          "                if (err) return reject(err);\r",
+          "                resolve(res);\r",
           "            }\r",
+          "        );\r",
+          "    });\r",
           "\r",
-          "            const json = res.json();\r",
+          "    const json = response.json();\r",
           "\r",
-          "            // Se criou, salva variáveis\r",
-          "            if (json?.userId) {\r",
-          "                console.log(\"✅ Usuário criado com sucesso:\", json.userId);\r",
+          "    if (response.code === 201 && json?.userId) {\r",
+          "        console.log(\"✅ Usuário criado com sucesso:\", json.userId);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreId\", json.userId);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreEmail\", json.email);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastrePassword\", password);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreToken\", json.userToken);\r",
+          "        return json;\r",
+          "    }\r",
           "\r",
-          "                pm.collectionVariables.set(\"userRecentCadastreId\", json.userId);\r",
-          "                pm.collectionVariables.set(\"userRecentCadastreEmail\", json.email);\r",
-          "                pm.collectionVariables.set(\"userRecentCadastrePassword\", password);\r",
-          "                pm.collectionVariables.set(\"userRecentCadastreToken\", json.userToken);\r",
-          "                return;\r",
-          "            }\r",
-          "\r",
-          "            // Tentativa falhou mesmo sem erro → repetir\r",
-          "            console.warn(`⚠ Tentativa ${attempt} falhou, tentando novamente...`);\r",
-          "            return createSimpleUserRequest(attempt + 1);\r",
-          "        }\r",
-          "    );\r",
+          "    console.warn(`⚠ Tentativa ${attempt} falhou (status ${response.code}), tentando novamente...`);\r",
+          "    return createSimpleUserRequest(attempt + 1); // recursão simples, sem envolver a Promise externa\r",
           "}\r",
           "\r",
           "function deleteSimpleUserRequest(token, userId) {\r",
@@ -3324,6 +3223,10 @@
     },
     {
       "key": "userRecentCadastreToken",
+      "value": ""
+    },
+    {
+      "key": "conflictEmail",
       "value": ""
     }
   ]
