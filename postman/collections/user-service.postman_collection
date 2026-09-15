@@ -2177,21 +2177,10 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"O ID deve estar no formato de UUID v4\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"O ID deve estar no formato de UUID v4\").toLowerCase());\r\n});"
+                ]
               }
             }
           ],
@@ -2547,58 +2536,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Permissão de usuário atualizada com sucesso\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\nconst login = use('performLogin');\r\n\r\ncreateSimpleUserRequest()\r\nlogin(pm.environment.get('adminEmail'), pm.environment.get('adminPassword'))"
+                ]
               }
             }
           ],
@@ -2648,65 +2598,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 409\", function () {\r",
-                  "    pm.response.to.have.status(409);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"já possui a permissão\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 409\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"já possui a permissão\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\nconst login = use('performLogin');\r\n\r\ncreateSimpleUserRequest()\r\nlogin(pm.environment.get('adminEmail'), pm.environment.get('adminPassword'))"
+                ]
               }
             }
           ],
@@ -2725,7 +2629,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"newRole\": \"Admin\"\r\n}",
+              "raw": "{\r\n    \"newRole\": \"User\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2733,7 +2637,7 @@
               }
             },
             "url": {
-              "raw": "{{user_service_url}}/update-role-user?userId=bac0f194-5663-4150-82cd-6561a1e2499e",
+              "raw": "{{user_service_url}}/update-role-user?userId={{userRecentCadastreId}}",
               "host": [
                 "{{user_service_url}}"
               ],
@@ -2743,7 +2647,211 @@
               "query": [
                 {
                   "key": "userId",
-                  "value": "bac0f194-5663-4150-82cd-6561a1e2499e"
+                  "value": "{{userRecentCadastreId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar permissão de usuário com token invalido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"token inválido ou não fornecido\"));\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('invalidToken', 'invalid')"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{invalidToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newRole\": \"Admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{user_service_url}}/update-role-user?userId={{userRecentCadastreId}}",
+              "host": [
+                "{{user_service_url}}"
+              ],
+              "path": [
+                "update-role-user"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar permissão de usuário usando token sem permissão de administrador",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 403\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"permissão insuficiente\"));\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newRole\": \"Admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{user_service_url}}/update-role-user?userId={{userRecentCadastreId}}",
+              "host": [
+                "{{user_service_url}}"
+              ],
+              "path": [
+                "update-role-user"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar permissão de usuário usando permissão invalida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"invalido\"));\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\nconst login = use('performLogin');\r\n\r\ncreateSimpleUserRequest()\r\nlogin(pm.environment.get('adminEmail'), pm.environment.get('adminPassword'))"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newRole\": \"Full\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{user_service_url}}/update-role-user?userId={{userRecentCadastreId}}",
+              "host": [
+                "{{user_service_url}}"
+              ],
+              "path": [
+                "update-role-user"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
                 }
               ]
             }
@@ -3176,7 +3284,7 @@
           "            const json = res.json();\r",
           "\r",
           "            if (json?.userToken) {\r",
-          "                pm.collectionVariables.set(tokenVarName, json.userToken);\r",
+          "                pm.environment.set(tokenVarName, json.userToken);\r",
           "                console.log(`✅ Token salvo em \"${tokenVarName}\"`);\r",
           "                return;\r",
           "            }\r",
@@ -3227,6 +3335,10 @@
     },
     {
       "key": "conflictEmail",
+      "value": ""
+    },
+    {
+      "key": "invalidToken",
       "value": ""
     }
   ]
