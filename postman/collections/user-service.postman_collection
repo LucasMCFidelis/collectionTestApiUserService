@@ -21,15 +21,6 @@
                   "pm.test(\"Status code deve ser 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst requestData = JSON.parse(pm.request.body.raw);\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade firstName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r\n    pm.expect(pm.response.json().firstName).to.eq(requestData.firstName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade lastName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r\n    pm.expect(pm.response.json().lastName).to.eq(requestData.lastName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade email, e que ela é padronizada em minúsculo\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"email\")\r\n    pm.expect(pm.response.json().email).to.eq(requestData.email.toLowerCase())\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r\n    pm.expect(pm.response.json().phoneNumber).to.eq(requestData.phoneNumber)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userToken\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userToken\")\r\n});\r\n"
                 ]
               }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  ""
-                ]
-              }
             }
           ],
           "request": {
@@ -1293,32 +1284,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Senha atualizada com sucesso\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Senha atualizada com sucesso\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "pm.environment.set(\"userRecentCadastrePassword\", \"{NewPass@123\")"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                ]
               }
             }
           ],
@@ -1327,7 +1305,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"{{userRecentCadastreEmail}}\",\r\n    \"newPassword\": \"{{userRecentCadastrePassword}}\",\r\n    \"recoveryCode\": \"{{recoveryCode}}\"\r\n}",
+              "raw": "{\r\n    \"email\": \"{{emailToRecoveryCode}}\",\r\n    \"newPassword\": \"{{newPassword}}\",\r\n    \"recoveryCode\": \"{{recoveryCode}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1353,66 +1331,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"senha deve ter pelo menos 8 caracteres, incluir uma letra maiúscula, um número e um caractere especial (!@#$&*)\"));\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"senha deve ter pelo menos 8 caracteres, incluir uma letra maiúscula, uma letra minuscula, um número e um caractere especial (!@#$&*)\"));\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                ]
               }
             }
           ],
@@ -1421,7 +1352,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"lucasm241301@gmail.com\",\r\n    \"newPassword\": \"@03#\",\r\n    \"recoveryCode\": \"oFnEK9\"\r\n}",
+              "raw": "{\r\n    \"email\": \"{{emailToRecoveryCode}}\",\r\n    \"newPassword\": \"@03#\",\r\n    \"recoveryCode\": \"{{recoveryCode}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1447,36 +1378,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    const responseText = pm.response.text();\r",
-                  "    pm.expect(responseText).to.satisfy(text => \r",
-                  "        text.includes(\"Código de recuperação expirado\".toLowerCase()) || text.includes(\"Código de recuperação inválido\".toLowerCase()),\r",
-                  "        \"Mensagem de erro esperada não encontrada na resposta\"\r",
-                  "    );\r",
-                  "});\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    const responseText = pm.response.text();\r\n    pm.expect(responseText).to.satisfy(text => \r\n        text.includes(\"Código de recuperação expirado\".toLowerCase()) || text.includes(\"Código de recuperação inválido\".toLowerCase()),\r\n        \"Mensagem de erro esperada não encontrada na resposta\"\r\n    );\r\n});\r\n"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then((data)=> {\r\n    pm.collectionVariables.set(\"recoveryCodeToExpired\", data.recoveryCode)\r\n    console.log(\"Codigo de recuperação salvo para expiração: \" + data.recoveryCode)\r\n\r\n    sendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then(()=> {\r\n        console.log(\"Novo código de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n    })\r\n})"
+                ]
               }
             }
           ],
@@ -1485,7 +1399,54 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"{{userRecentCadastreEmail}}\",\r\n    \"newPassword\": \"{{userRecentCadastrePassword}}\",\r\n    \"recoveryCode\": \"oFnEK9\"\r\n}",
+              "raw": "{\r\n    \"email\": \"{{emailToRecoveryCode}}\",\r\n    \"newPassword\": \"{{newPassword}}\",\r\n    \"recoveryCode\": \"{{recoveryCodeToExpired}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{user_service_url}}/recuperacao/atualizar-senha",
+              "host": [
+                "{{user_service_url}}"
+              ],
+              "path": [
+                "recuperacao",
+                "atualizar-senha"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Alterar senha de um usuário com código de recuperação incorreto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLowerCase());\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"{{emailToRecoveryCode}}\",\r\n    \"newPassword\": \"{{newPassword}}\",\r\n    \"recoveryCode\": \"oFnEK9\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1511,65 +1472,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                ]
               }
             }
           ],
@@ -1578,7 +1493,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"lucasm2413ail.com\",\r\n    \"newPassword\": \"@JMKIoowD03#\",\r\n    \"recoveryCode\": \"oFnEK9\"\r\n}",
+              "raw": "{\r\n    \"email\": \"fidelis.com\",\r\n    \"newPassword\": \"{{newPassword}}\",\r\n    \"recoveryCode\": \"oFnEK9\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1604,65 +1519,19 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
-                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include((\"Recoverycode é obrigatório\").toLowerCase());\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Recoverycode é obrigatório\").toLowerCase());\r\n});"
+                ]
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  "// Gera uma hora aleatória entre 0 e 23\r",
-                  "const hour = Math.floor(Math.random() * 24);\r",
-                  "\r",
-                  "// Gera um minuto aleatório entre 0 e 59\r",
-                  "const minute = Math.floor(Math.random() * 60);\r",
-                  "\r",
-                  "// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-                  "const formattedHour = hour.toString().padStart(2, '0');\r",
-                  "const formattedMinute = minute.toString().padStart(2, '0');\r",
-                  "\r",
-                  "// Combina hora e minuto em um horário\r",
-                  "const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-                  "\r",
-                  "// Armazena o horário em uma variável de ambiente\r",
-                  "pm.environment.set(\"randomStartTime\", randomTime);\r",
-                  "\r",
-                  "// Função para gerar uma data aleatória entre duas datas\r",
-                  "function randomDate(start, end) {\r",
-                  "    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-                  "    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-                  "    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-                  "    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-                  "    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-                  "}\r",
-                  "\r",
-                  "// Define as datas de início e fim do intervalo\r",
-                  "const startDate = new Date('2024-01-01');\r",
-                  "const endDate = new Date('2024-12-31');\r",
-                  "\r",
-                  "// Gera uma data aleatória dentro do intervalo definido\r",
-                  "const generatedDate = randomDate(startDate, endDate);\r",
-                  "\r",
-                  "// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-                  "pm.environment.set(\"randomDate\", generatedDate);\r",
-                  ""
-                ],
                 "type": "text/javascript",
-                "packages": {}
+                "exec": [
+                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                ]
               }
             }
           ],
@@ -1671,7 +1540,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"lucasm241301@gmail.com\",\r\n    \"newPassword\": \"@JMKIoowD03#\"\r\n}",
+              "raw": "{\r\n    \"email\": \"{{emailToRecoveryCode}}\",\r\n    \"newPassword\": \"{{newPassword}}\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1690,47 +1559,6 @@
             }
           },
           "response": []
-        }
-      ],
-      "event": [
-        {
-          "listen": "prerequest",
-          "script": {
-            "type": "text/javascript",
-            "packages": {},
-            "exec": [
-              "pm.sendRequest({\r",
-              "    url: pm.environment.get(\"email_service_url\") + \"/send-recovery-code\",\r",
-              "    method: \"POST\",\r",
-              "    header: {\r",
-              "        \"Content-Type\": \"application/json\"\r",
-              "    },\r",
-              "    body: {\r",
-              "        mode: \"raw\",\r",
-              "        raw: JSON.stringify({\r",
-              "            email: pm.environment.get(\"userRecentCadastreEmail\")\r",
-              "        })\r",
-              "    }\r",
-              "}, function (err, res) {\r",
-              "        if (!err) {\r",
-              "            console.log(res.json())\r",
-              "            pm.environment.set(\"recoveryCode\", res.json().recoveryCode);\r",
-              "        } else {\r",
-              "            console.log(\"Erro ao obter código de recuperação:\", err);\r",
-              "        }\r",
-              "});"
-            ]
-          }
-        },
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "packages": {},
-            "exec": [
-              ""
-            ]
-          }
         }
       ]
     },
@@ -3294,10 +3122,48 @@
           "    );\r",
           "}\r",
           "\r",
+          "async function sendRecoveryCodeRequest(email, scenario) {\r",
+          "    const response = await new Promise((resolve, reject) => {\r",
+          "        pm.sendRequest({\r",
+          "            url: `${pm.environment.get(\"email_service_url\")}/send-recovery-code`,\r",
+          "            method: \"POST\",\r",
+          "            header: {\r",
+          "                \"Content-Type\": \"application/json\",\r",
+          "                ...(pm.environment.get(\"useMock\") === \"true\" && scenario\r",
+          "                    ? { \"x-mock-scenario\": scenario }\r",
+          "                    : {})\r",
+          "            },\r",
+          "            body: {\r",
+          "                mode: \"raw\",\r",
+          "                raw: JSON.stringify({ email }),\r",
+          "                options: {\r",
+          "                    raw: {\r",
+          "                        language: \"json\"\r",
+          "                    }\r",
+          "                }\r",
+          "            }\r",
+          "        },\r",
+          "            (err, res) => {\r",
+          "                if (err) return reject(err);\r",
+          "                resolve(res);\r",
+          "            }\r",
+          "        );\r",
+          "    });\r",
+          "\r",
+          "    const json = response.json();\r",
+          "    console.log(json)\r",
+          "    pm.collectionVariables.set(\"emailToRecoveryCode\", email);\r",
+          "    if (json?.recoveryCode) {\r",
+          "        pm.collectionVariables.set(\"recoveryCode\", json.recoveryCode);\r",
+          "    }\r",
+          "\r",
+          "    return json\r",
+          "}\r",
           "\r",
           "pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
           "pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
           "pm.collectionVariables.set(performLogin.name, performLogin.toString());\r",
+          "pm.collectionVariables.set(sendRecoveryCodeRequest.name, sendRecoveryCodeRequest.toString())\r",
           ""
         ],
         "type": "text/javascript"
@@ -3339,6 +3205,26 @@
     },
     {
       "key": "invalidToken",
+      "value": ""
+    },
+    {
+      "key": "sendRecoveryCodeRequest",
+      "value": ""
+    },
+    {
+      "key": "emailToRecoveryCode",
+      "value": ""
+    },
+    {
+      "key": "recoveryCode",
+      "value": ""
+    },
+    {
+      "key": "recoveryCodeToExpired",
+      "value": ""
+    },
+    {
+      "key": "newPassword",
       "value": ""
     }
   ]
