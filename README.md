@@ -69,12 +69,13 @@ Como o UserService participa dos fluxos de login e recuperação de senha, a col
 |-----------|---|
 | `useMock` | `"true"` pula a criação/remoção real de usuário (usa dados fixos) e envia `x-mock-scenario` nas chamadas de login; `"false"` roda a integração real ponta a ponta. |
 
-### 👤 Credenciais do Admin
+### 👤 Credenciais
 
 | Variável        | Descrição                 |
 |-----------------|----------------------------|
 | `adminEmail`    | Email de um usuário com permissão de Admin, usado nos testes de atualização de permissão |
 | `adminPassword` | Senha desse administrador |
+| `emailDefaultToRecoveryPassword` | Email padrão para testes de atualização de senha |
 
 ### 🧪 Variáveis de fluxo (preenchidas automaticamente)
 

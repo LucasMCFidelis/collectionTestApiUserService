@@ -1295,7 +1295,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                  ""
                 ]
               }
             }
@@ -1347,7 +1347,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                  ""
                 ]
               }
             }
@@ -1390,7 +1390,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Código de recuperação expirado\").toLowerCase());\r\n});"
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.json().message).to.match(/código de recuperação expirado/i);\r\n});"
                 ]
               }
             },
@@ -1399,7 +1399,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then((data)=> {\r\n    pm.collectionVariables.set(\"recoveryCodeToExpired\", data.recoveryCode)\r\n    console.log(\"Codigo de recuperação salvo para expiração: \" + data.recoveryCode)\r\n\r\n    sendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then(()=> {\r\n        console.log(\"Novo código de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n    })\r\n})"
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\npm.collectionVariables.set(\"recoveryCodeToExpired\", pm.collectionVariables.get(\"recoveryCode\"))\r\nconsole.log(\"Codigo de recuperação salvo para expiração: \" + pm.collectionVariables.get(\"recoveryCodeToExpired\"))\r\n\r\nsendRecoveryCodeRequest(pm.environment.get(\"emailDefaultToRecoveryPassword\"), \"SUCCESS_SEND_RECOVERY_CODE\").then((data) => {\r\n    console.log(\"Novo código de recuperação capturado: \" + data.recoveryCode)\r\n})\r\n"
                 ]
               }
             }
@@ -1442,16 +1442,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Código de recuperação expirado\").toLowerCase());\r\n});"
-                ]
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.json().message).to.match(/código de recuperação expirado/i);\r\n});"
                 ]
               }
             }
@@ -1503,7 +1494,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                  ""
                 ]
               }
             }
@@ -1550,7 +1541,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(\"fidelis.lucasm@gmail.com\", \"SUCCESS_SEND_RECOVERY_CODE\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+                  ""
                 ]
               }
             }
@@ -1579,6 +1570,17 @@
             }
           },
           "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set(\"newPassword\", \"{NewPass@123\")\r\n\r\nfunction use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst sendRecoveryCodeRequest = use('sendRecoveryCodeRequest');\r\n\r\nsendRecoveryCodeRequest(pm.environment.get(\"emailDefaultToRecoveryPassword\"), \"SUCCESS_SEND_RECOVERY_CODE\").then(()=>{\r\n    console.log(\"Codigo de recuperação capturado: \" + pm.collectionVariables.get(\"recoveryCode\"))\r\n})"
+            ]
+          }
         }
       ]
     },
