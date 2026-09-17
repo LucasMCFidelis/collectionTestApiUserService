@@ -1,0 +1,20 @@
+{
+  "priority": 10,
+  "request": {
+    "method": "POST",
+    "url": "/users/validate-credentials",
+    "headers": {
+      "X-Mock-Scenario": {
+        "equalTo": "SUCCESS_VALIDATE_ADMIN"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "userId": "407705b5-528b-4368-8f1f-b55d6989670e",
+      "userEmail": "horacio.barton@gmail.com",
+      "roleName": "Admin"
+    }
+  }
+}
