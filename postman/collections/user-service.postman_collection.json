@@ -25,7 +25,12 @@
           ],
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_LOGIN_USER"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
@@ -55,20 +60,16 @@
                   "pm.test(\"Status code deve ser 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst requestData = JSON.parse(pm.request.body.raw);\r\n\r\npm.test(\"Deve validar a propriedade userId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade firstName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"firstName\")\r\n    pm.expect(pm.response.json().firstName).to.eq(requestData.firstName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade lastName\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"lastName\")\r\n    pm.expect(pm.response.json().lastName).to.eq(requestData.lastName)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade email, e que ela é padronizada em minúsculo\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"email\")\r\n    pm.expect(pm.response.json().email).to.eq(requestData.email.toLowerCase())\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber é null\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"phoneNumber\")\r\n    pm.expect(pm.response.json().phoneNumber).to.eq(null)\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userToken\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userToken\")\r\n});\r\n"
                 ]
               }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  ""
-                ]
-              }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_LOGIN_USER"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{Password@123\"\r\n}",
@@ -978,20 +979,16 @@
                   "pm.test(\"Status code deve ser 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade phoneNumber\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"phoneNumber\");\r\n    pm.expect(jsonData.phoneNumber).to.equal(null);\r\n});\r\n"
                 ]
               }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  ""
-                ]
-              }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_LOGIN_USER"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{Password@123\"\r\n}",
@@ -2304,7 +2301,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\nconst login = use('performLogin');\r\n\r\ncreateSimpleUserRequest()\r\nlogin(pm.environment.get('adminEmail'), pm.environment.get('adminPassword'))"
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\nconst login = use('performLogin');\r\n\r\ncreateSimpleUserRequest()\r\nlogin(pm.environment.get('adminEmail'), pm.environment.get('adminPassword'), \"SUCCESS_LOGIN_USER\")"
                 ]
               }
             }
@@ -2321,7 +2318,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_ADMIN"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"newRole\": \"Admin\"\r\n}",
@@ -2383,7 +2385,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_ADMIN"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"newRole\": \"User\"\r\n}",
@@ -2445,7 +2452,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "FAIL_VALIDATE_TOKEN"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"newRole\": \"Admin\"\r\n}",
@@ -2516,7 +2528,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"newRole\": \"Admin\"\r\n}",
@@ -2587,7 +2604,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_ADMIN"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"newRole\": \"Full\"\r\n}",
@@ -2920,14 +2942,7 @@
           "    return eval(`(${raw})`);\r",
           "}\r",
           "\r",
-          "async function createSimpleUserRequest(attempt = 1) {\r",
-          "    if (pm.environment.get(\"useMock\") === \"true\") {\r",
-          "        console.log(\"🟡 Modo mock ativo — pulando criação real de usuário\");\r",
-          "        pm.collectionVariables.set(\"userRecentCadastreEmail\", \"mock.user@test.com\");\r",
-          "        pm.collectionVariables.set(\"userRecentCadastrePassword\", \"Password@123\");\r",
-          "        return;\r",
-          "    }\r",
-          "\r",
+          "async function createSimpleUserRequest(attempt = 1, scenario = \"SUCCESS_LOGIN_USER\") {\r",
           "    const password = \"Password@123\";\r",
           "\r",
           "    if (attempt > 5) {\r",
@@ -2936,12 +2951,20 @@
           "\r",
           "    console.log(`🔄 Tentativa ${attempt} de criar usuário simples...`);\r",
           "\r",
+          "    const headers = {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    };\r",
+          "\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
+          "        headers[\"x-mock-scenario\"] = scenario;\r",
+          "    }\r",
+          "\r",
           "    const response = await new Promise((resolve, reject) => {\r",
           "        pm.sendRequest(\r",
           "            {\r",
           "                url: pm.environment.get(\"user_service_url\"),\r",
           "                method: \"POST\",\r",
-          "                header: { \"Content-Type\": \"application/json\" },\r",
+          "                header: headers,\r",
           "                body: {\r",
           "                    mode: \"raw\",\r",
           "                    raw: JSON.stringify({\r",
