@@ -2428,7 +2428,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"token inválido ou não fornecido\"));\r\n});"
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text().toLowerCase()).to.include((\"token inválido ou não fornecido\"));\r\n});"
                 ]
               }
             },
@@ -2678,7 +2678,12 @@
               ]
             },
             "method": "DELETE",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
             "url": {
               "raw": "{{user_service_url}}?userId={{userRecentCadastreId}}",
               "host": [
@@ -2705,6 +2710,15 @@
                   "pm.test(\"Status code deve ser 403\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Acesso negado. O ID do usuário logado não corresponde ao ID solicitado para a operação\"));\r\n});"
                 ]
               }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+                ]
+              }
             }
           ],
           "request": {
@@ -2719,7 +2733,12 @@
               ]
             },
             "method": "DELETE",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
             "url": {
               "raw": "{{user_service_url}}?userId=a5c55c7f-8cd0-4fbe-b5df-3806e0c66bb4",
               "host": [
@@ -2769,7 +2788,12 @@
               ]
             },
             "method": "DELETE",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
             "url": {
               "raw": "{{user_service_url}}?userId=",
               "host": [
