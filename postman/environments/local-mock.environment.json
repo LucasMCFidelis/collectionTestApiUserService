@@ -1,6 +1,6 @@
 {
   "id": "local-mock-env",
-  "name": "Local Mock Environment",
+  "name": "Local Mock Environment - userService",
   "values": [
     {
       "key": "user_service_url",

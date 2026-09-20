@@ -1,0 +1,42 @@
+{
+  "id": "local-real-env",
+  "name": "Local Real Integration - userService",
+  "description": "⚠️ AVISO: Este environment carrega as variaveis adminEmail, adminPassword e emailDefaultToRecoveryPassword vazias.\n\nPara executar os cenários que envolvem autenticação de administrador, é OBRIGATÓRIO injetar as credenciais via CLI (Newman) ou variáveis de ambiente. Para testes de recuperação de senha, também é necessário injetar o email padrão para evitar envios indevidos.\n\nExemplo:\nnewman run postman/collections/<collection-name>.json -e postman/environments/production.environment.json --env-var 'adminEmail=admin@empresa.com' --env-var 'adminPassword=SenhaReal@123' --env-var 'emailDefaultToRecoveryPassword=email@default.com' \n\nSem essa injeção, os testes que envolvem autenticação de administrador e envio de emails irão falhar.",
+  "values": [
+    {
+      "key": "user_service_url",
+      "value": "http://localhost:3333/users",
+      "enabled": true
+    },
+    {
+      "key": "auth_service_url",
+      "value": "http://localhost:3232/auth",
+      "enabled": true
+    },
+    {
+      "key": "email_service_url",
+      "value": "http://localhost:3000/emails",
+      "enabled": true
+    },
+    {
+      "key": "useMock",
+      "value": "false",
+      "enabled": true
+    },
+    {
+      "key": "adminEmail",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "adminPassword",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "emailDefaultToRecoveryPassword",
+      "value": "",
+      "enabled": true
+    }
+  ]
+}
