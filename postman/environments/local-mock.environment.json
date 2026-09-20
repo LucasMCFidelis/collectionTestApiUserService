@@ -1,0 +1,41 @@
+{
+  "id": "local-mock-env",
+  "name": "Local Mock Environment",
+  "values": [
+    {
+      "key": "user_service_url",
+      "value": "http://localhost:3333/users",
+      "enabled": true
+    },
+    {
+      "key": "auth_service_url",
+      "value": "http://localhost:8080/auth",
+      "enabled": true
+    },
+    {
+      "key": "email_service_url",
+      "value": "http://localhost:8089/emails",
+      "enabled": true
+    },
+    {
+      "key": "useMock",
+      "value": "true",
+      "enabled": true
+    },
+    {
+      "key": "adminEmail",
+      "value": "lucasm@gmail.com",
+      "enabled": true
+    },
+    {
+      "key": "adminPassword",
+      "value": "Password03#",
+      "enabled": true
+    },
+    {
+      "key": "emailDefaultToRecoveryPassword",
+      "value": "fidelis.lucasm@gmail.com",
+      "enabled": true
+    }
+  ]
+}
