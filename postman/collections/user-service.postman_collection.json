@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "20c2f95f-015c-4c4b-8f33-9f31fc63c0d6",
+    "_postman_id": "78e203c2-b09f-412f-b9ae-faad2b913513",
     "name": "userService",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "36785755",
-    "_collection_link": "https://go.postman.co/collection/36785755-20c2f95f-015c-4c4b-8f33-9f31fc63c0d6?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/36785755-78e203c2-b09f-412f-b9ae-faad2b913513?source=collection_link"
   },
   "item": [
     {
@@ -1387,7 +1387,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.json().message).to.match(/código de recuperação expirado/i);\r\n});"
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.json().message).to.match(/código de recuperação (expirado|inv[aá]lido)/i);\r\n});"
                 ]
               }
             },
@@ -1439,7 +1439,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.json().message).to.match(/código de recuperação expirado/i);\r\n});"
+                  "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.json().message).to.match(/código de recuperação (expirado|inv[aá]lido)/i);\r\n});"
                 ]
               }
             }
@@ -2819,7 +2819,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODViYmUwMi04MjRiLTRlYTMtYWFkZC1hZGY2M2ZlZWIzZDEiLCJ1c2VyRW1haWwiOiJqZXNzeS5zdHJvbWFuQHlhaG9vLmNvbSIsInJvbGVOYW1lIjoiVXNlciIsImlhdCI6MTc0NDc1Mjc0MSwiZXhwIjoxNzQ0NzU2MzQxfQ.9Unu2ceMbwcYtUenjyqJnAVyMz0uyf3HOPR1-NvIYLU",
+              "value": "",
               "type": "string"
             }
           ]
@@ -2853,7 +2853,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODViYmUwMi04MjRiLTRlYTMtYWFkZC1hZGY2M2ZlZWIzZDEiLCJ1c2VyRW1haWwiOiJqZXNzeS5zdHJvbWFuQHlhaG9vLmNvbSIsInJvbGVOYW1lIjoiVXNlciIsImlhdCI6MTc0NDc1Mjc0MSwiZXhwIjoxNzQ0NzU2MzQxfQ.9Unu2ceMbwcYtUenjyqJnAVyMz0uyf3HOPR1-NvIYLU",
+              "value": "",
               "type": "string"
             }
           ]
@@ -2890,7 +2890,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODViYmUwMi04MjRiLTRlYTMtYWFkZC1hZGY2M2ZlZWIzZDEiLCJ1c2VyRW1haWwiOiJqZXNzeS5zdHJvbWFuQHlhaG9vLmNvbSIsInJvbGVOYW1lIjoiVXNlciIsImlhdCI6MTc0NDc1Mjc0MSwiZXhwIjoxNzQ0NzU2MzQxfQ.9Unu2ceMbwcYtUenjyqJnAVyMz0uyf3HOPR1-NvIYLU",
+              "value": "",
               "type": "string"
             }
           ]
@@ -2927,7 +2927,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODViYmUwMi04MjRiLTRlYTMtYWFkZC1hZGY2M2ZlZWIzZDEiLCJ1c2VyRW1haWwiOiJqZXNzeS5zdHJvbWFuQHlhaG9vLmNvbSIsInJvbGVOYW1lIjoiVXNlciIsImlhdCI6MTc0NDc1Mjc0MSwiZXhwIjoxNzQ0NzU2MzQxfQ.9Unu2ceMbwcYtUenjyqJnAVyMz0uyf3HOPR1-NvIYLU",
+              "value": "",
               "type": "string"
             }
           ]
