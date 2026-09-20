@@ -1618,7 +1618,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
@@ -1677,7 +1682,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{conflictEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
@@ -1713,15 +1723,6 @@
                   "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"O ID não pode ser vazio\").toLowerCase());\r\n});"
                 ]
               }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  ""
-                ]
-              }
             }
           ],
           "request": {
@@ -1736,7 +1737,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
@@ -1772,15 +1778,6 @@
                   "pm.test(\"Status code deve ser 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"O ID deve estar no formato de UUID v4\").toLowerCase());\r\n});"
                 ]
               }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  ""
-                ]
-              }
             }
           ],
           "request": {
@@ -1795,7 +1792,12 @@
               ]
             },
             "method": "PUT",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
