@@ -33,7 +33,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -72,7 +72,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -120,7 +120,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -163,7 +163,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -206,7 +206,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}} ##\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}} ##\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -249,7 +249,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"p\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"p\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -292,7 +292,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": {\"number\": 9726434},\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": {\"number\": 9726434},\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -335,7 +335,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"         \",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"         \",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -383,7 +383,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -426,7 +426,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -469,7 +469,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} $$# {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomWord}} $$# {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -512,7 +512,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"lui\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"lui\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -555,7 +555,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": 2230861,\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": 2230861,\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -598,7 +598,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"          \",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"          \",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -646,7 +646,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -689,7 +689,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -732,7 +732,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": 2345678,\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": 2345678,\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -775,7 +775,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"          \",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"          \",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -818,7 +818,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"lucasm241301@gmail.com\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"lucasm241301@gmail.com\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -866,7 +866,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": {},\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": {},\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -909,7 +909,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -952,7 +952,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333332345673\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333332345673\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -991,7 +991,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{Password@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{Password@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1039,7 +1039,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1082,7 +1082,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1125,7 +1125,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"@123\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"@123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1168,7 +1168,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"111111111111\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"111111111111\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1211,7 +1211,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@!!#E\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"{Password@!!#E\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1254,7 +1254,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"1WESsssrt23\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\",\r\n    \"password\": \"1WESsssrt23\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1626,7 +1626,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1690,7 +1690,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{conflictEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{conflictEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1745,7 +1745,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1800,7 +1800,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"{{$randomWord}}\",\r\n    \"lastName\": \"{{$randomWord}} {{$randomWord}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
+              "raw": "{\r\n    \"firstName\": \"{{$randomColor}}\",\r\n    \"lastName\": \"{{$randomColor}} {{$randomColor}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phoneNumber\": \"33333333333\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2994,8 +2994,8 @@
           "                body: {\r",
           "                    mode: \"raw\",\r",
           "                    raw: JSON.stringify({\r",
-          "                        firstName: pm.variables.replaceIn(\"{{$randomWord}}\"),\r",
-          "                        lastName: `${pm.variables.replaceIn(\"{{$randomWord}}\")} ${pm.variables.replaceIn(\"{{$randomWord}}\")}`,\r",
+          "                        firstName: pm.variables.replaceIn(\"{{$randomColor}}\"),\r",
+          "                        lastName: `${pm.variables.replaceIn(\"{{$randomColor}}\")} ${pm.variables.replaceIn(\"{{$randomColor}}\")}`,\r",
           "                        email: pm.variables.replaceIn(\"{{$randomEmail}}\"),\r",
           "                        password,\r",
           "                    }),\r",
