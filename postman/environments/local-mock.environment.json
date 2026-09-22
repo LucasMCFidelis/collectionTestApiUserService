@@ -4,7 +4,7 @@
   "values": [
     {
       "key": "user_service_url",
-      "value": "http://localhost:3333/users",
+      "value": "http://localhost:8081/users",
       "enabled": true
     },
     {
