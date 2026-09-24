@@ -1,6 +1,6 @@
 {
-  "id": "local-mock-env",
-  "name": "Local Mock Environment - userService",
+  "id": "local-env",
+  "name": "Local Environment - userService",
   "values": [
     {
       "key": "user_service_url",
@@ -9,12 +9,12 @@
     },
     {
       "key": "auth_service_url",
-      "value": "http://localhost:8080/auth",
+      "value": "http://localhost:8082/auth",
       "enabled": true
     },
     {
       "key": "email_service_url",
-      "value": "http://localhost:8089/emails",
+      "value": "http://localhost:8083/emails",
       "enabled": true
     },
     {
