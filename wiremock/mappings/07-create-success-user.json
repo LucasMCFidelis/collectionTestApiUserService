@@ -1,0 +1,26 @@
+{
+  "priority": 5,
+  "request": {
+    "method": "POST",
+    "urlPath": "/users",
+    "headers": {
+      "X-Mock-Scenario": {
+        "equalTo": "SUCCESS_CREATE_USER"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "jsonBody": {
+      "userId": "{{randomValue type='UUID'}}",
+      "firstName": "{{jsonPath request.body '$.firstName'}}",
+      "lastName": "{{jsonPath request.body '$.lastName'}}",
+      "email": "{{jsonPath request.body '$.email'}}",
+      "phoneNumber": "{{jsonPath request.body '$.phoneNumber'}}",
+      "userToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjQ4ZDQwYy1kMGFlLTQzNWMtYjBkOS1kYTU3MGQzZDk0ODQiLCJ1c2VyRW1haWwiOiJhbHZlcnRhX2dvdHRsaWViMjBAZ21haWwuY29tIiwicm9sZU5hbWUiOiJVc2VyIiwiaWF0IjoxNzg5NzgzMTc3LCJleHAiOjE3ODk3ODY3Nzd9.JGzBHRc7k34OSOafR8lq3rnuOPQxxwbOQUgXwZl4S88"
+    },
+    "transformers": [
+      "response-template"
+    ]
+  }
+}
