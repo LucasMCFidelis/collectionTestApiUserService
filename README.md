@@ -1,65 +1,70 @@
 # 👤 collectionTestApiUserService
 
-Repositório de suporte a testes do **UserService** do projeto *Catálogo de Eventos*. Reúne:
-
-1. A **collection do Postman** com os testes de integração do próprio UserService (cadastro, edição, busca, recuperação de senha, permissões, exclusão).
-2. Os **mappings do WireMock** que simulam o UserService, reaproveitados como dependência mockada pelas suítes de teste do [`auth-service`](https://github.com/LucasMCFidelis/auth-service-eventsCatalog-) e do [`email-service`](https://github.com/LucasMCFidelis/email-service-eventsCatalog-).
-
-> ℹ️ **Environments disponíveis**: `local-mock` e `local-real`. A pipeline de CI do UserService não usa um `ci.environment.json` próprio: como o cenário de CI é essencialmente uma cópia do `local-mock` (mesmos mocks, mesmo `useMock=true`), o `local-mock.environment.json` é reaproveitado diretamente lá.
-
----
-
-## 📁 Estrutura
-
-```
-collectionTestApiUserService/
-├── postman/
-│   ├── collections/
-│   │   └── user-service.postman_collection.json
-│   └── environments/
-│       ├── local-mock.environment.json
-│       └── local-real.environment.json
-└── wiremock/
-    └── mappings/
-        ├── 00-fallback.json
-        ├── 01-validate-success-user.json
-        ├── 02-validate-success-admin.json
-        ├── 03-invalid-credentials.json
-        ├── 04-user-not-found.json
-        ├── 05-invalid-email.json
-        └── 06-get-to-email-success-user.json
-```
+Collection do Postman para testes de integração (end-to-end) do **UserService** do projeto *Catálogo de Eventos*. A collection cobre os fluxos de **cadastro**, **edição**, **busca**, **recuperação de senha**, **permissões**, **exclusão**, incluindo cenários de sucesso, erro de validação e erros de permissão.
 
 ---
 
 ## ▶️ Como executar
 
+Essa collection é usada de duas formas: **automaticamente**, dentro do `docker compose` do serviço testado, ou **manualmente**, via Postman/Newman, para depurar um cenário específico. Veja a seção [🌎 Ambientes disponíveis](#-ambientes-disponíveis) para saber qual environment usar em cada caso.
+
+Para rodar manualmente — seja pelo Postman, seja pelo Newman — primeiro suba o ambiente de teste do UserService via `docker compose`, no repositório do serviço, [`user-service-eventsCatalog`](https://github.com/LucasMCFidelis/user-service-eventsCatalog) — é lá que estão as instruções detalhadas de setup, profiles e variáveis de ambiente:
+
+```bash
+docker compose --profile test up --build -d
+```
+
+Isso builda este repositório internamente e já roda a collection automaticamente (contra `ci.environment.json`), mas mantém o UserService e os mocks do AuthService e EmailService publicados nas portas padrão do host (`8081`/`8082`/`8083`) enquanto os containers estiverem de pé — é contra essas portas que o environment `local` aponta, usado abaixo em ambas as opções. Ao terminar, encerre o ambiente com `docker compose --profile test down -v` no repositório do UserService.
+
+Clone este repositório também — é dele que vêm a collection e os environments usados nas duas opções abaixo:
+
+```bash
+git clone https://github.com/LucasMCFidelis/collectionTestApiUserService.git
+cd collectionTestApiUserService
+```
+
 ### Opção 1 — Postman (interface gráfica)
 1. Importe a collection em `postman/collections/user-service.postman_collection.json`.
-2. Importe o environment desejado em `postman/environments/` (`local-mock` ou `local-real`).
-3. Selecione o environment no canto superior direito do Postman e preencha `adminEmail`/`adminPassword` (não vêm preenchidos no `local-real`).
-4. Execute a collection inteira via **Runner**, ou cada request individualmente.
+2. Importe o(s) environment(s) desejado(s) em `postman/environments/` (`local.environment.json` e/ou `ci.environment.json`).
+3. Selecione o environment no canto superior direito do Postman.
+4. Preencha as variáveis obrigatórias (ver seção [Variáveis](#️-variáveis-necessárias-para-executar-a-collection) abaixo) — os dois environments já vêm preenchidos por padrão, só ajuste se necessário.
+5. Execute a collection inteira via **Runner**, ou cada request individualmente.
 
-### Opção 2 — Newman (linha de comando / CI)
+### Opção 2 — Newman (linha de comando)
+
+Com o `docker compose` já rodando e o repositório clonado, aponte o Newman direto para o environment `local`, sem precisar sobrescrever nenhuma URL:
+
 ```bash
 npm install -g newman
 
 newman run postman/collections/user-service.postman_collection.json \
-  -e postman/environments/local-mock.environment.json
+  -e postman/environments/local.environment.json
 ```
-Basta trocar o arquivo de environment (`-e`) para rodar contra `local-real`, por exemplo. É esse mesmo comando (com `local-mock.environment.json`) que a pipeline de CI do UserService executa.
+
+---
+
+## 🌎 Ambientes disponíveis
+
+Só existem **dois** arquivos de environment neste repositório — mantidos deliberadamente enxutos, um para cada forma de execução:
+
+| Ambiente  | Quando usar                                                                                                                                                                                                                                                                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Local** | Rodar a collection manualmente (Postman ou Newman), na sua máquina, contra o ambiente de teste do UserService já rodando localmente via `docker compose` (porta padrão do host — ver seção abaixo). Ideal para depurar um cenário específico sem esperar o CI.                                                                                    |
+| **CI**    | Uso interno, automático: é o environment que o próprio `docker compose` do UserService injeta no container de testes. Os hostnames (`user-service`, `auth-service`, `email-service`) são os *aliases* de rede dos serviços dentro do Compose, não `localhost` — porta interna sempre `8080`. Normalmente você não precisa selecionar esse environment manualmente. |
+
+Os dois já vêm com `useMock="true"` e `adminEmail`/`adminPassword`/`emailDefaultToRecoveryPassword` preenchidos com credenciais fixas de mock — não é preciso configurar nada para rodar contra o ambiente de teste (mockado) do UserService, seja localmente, seja no CI.
 
 ---
 
 ## ⚙️ Variáveis necessárias para executar a Collection
+Para que esta collection funcione corretamente no Postman, configure as seguintes variáveis no **Environment**:
+
 
 ### 🌐 URLs dos serviços obrigatórios
 
-Como o UserService participa dos fluxos de login e recuperação de senha, a collection depende também do **AuthService** e do **EmailService** reais (ou de instâncias locais deles) para completar alguns cenários — não é um teste isolado do UserService sozinho.
-
 | Variável            | Descrição                                                                                     |
 | ------------------- | --------------------------------------------------------------------------------------------- |
-| `user_service_url`  | URL base do UserService sendo testado                                                         |
+| `user_service_url`  | URL base do UserService sendo testado — sempre uma instância real, em qualquer um dos environments |
 | `auth_service_url`  | URL base do AuthService, usado para obter tokens de login (`performLogin`)                    |
 | `email_service_url` | URL base do EmailService, usado para gerar códigos de recuperação (`sendRecoveryCodeRequest`) |
 
@@ -67,7 +72,7 @@ Como o UserService participa dos fluxos de login e recuperação de senha, a col
 
 | Variável  | Descrição                                                                                                                                                          |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `useMock` | `"true"` pula a criação/remoção real de usuário (usa dados fixos) e envia `x-mock-scenario` nas chamadas de login; `"false"` roda a integração real ponta a ponta. |
+| `useMock` | `"true"`: a criação do usuário de teste continua acontecendo de verdade no UserService (só ganha o header `x-mock-scenario`), mas a remoção ao final é pulada; as chamadas a `auth_service_url`/`email_service_url` enviam `x-mock-scenario` para acionar os respectivos mocks. `"false"`: roda a integração real ponta a ponta, sem headers de mock, e remove o usuário criado ao final. |
 
 ### 👤 Credenciais e e-mails fixos
 
@@ -118,7 +123,7 @@ Todos os requests validam o status HTTP retornado e o conteúdo da resposta (cor
 
 ### 📂 Cadastro campo: telefone
 | Cenário                                                   | Retorno esperado              |
-| --------------------------------------------------------- | ----------------------------- |
+| --------------------------------------------------------- | ------------------------------ |
 | Tipo inválido / menor que o esperado / maior que o limite | `400`                         |
 | Sem passar o telefone                                     | `201` *(telefone é opcional)* |
 
@@ -171,7 +176,7 @@ Todos os requests validam o status HTTP retornado e o conteúdo da resposta (cor
 
 ### 📂 Deletar usuário (`DELETE {{user_service_url}}?userId=...`)
 | Cenário                                            | Retorno esperado |
-| -------------------------------------------------- | ---------------- |
+| --------------------------------------------------- | ---------------- |
 | Deletar usuário existente (usando o próprio token) | `200`            |
 | Deletar com id diferente do usuário logado         | `403`            |
 | Deletar sem informar ID                            | `400`            |
@@ -203,24 +208,18 @@ Além da collection própria, este repositório mantém os mappings do WireMock 
 | `04-user-not-found.json`            | `ANY /users*`                      | `USER_NOT_FOUND`                      | `404` — "Usuário não encontrado"                                                                         |
 | `05-invalid-email.json`             | `ANY /users/*`                     | `INVALID_EMAIL`                       | `400` — "email deve ser um email válido"                                                                 |
 | `06-get-to-email-success-user.json` | `GET /users?userEmail=...`         | `SUCCESS_GET_USER`                    | `200` — retorna um usuário mockado, ecoando o `userEmail` da query na resposta (via `response-template`) |
+| `07-create-success-user.json`       | `POST /users`                      | `SUCCESS_CREATE_USER`                 | `201` — retorna um usuário mockado, com os dados enviados na requisição e `userToken` fixo               |
 
 A prioridade (`priority`) de cada mapping evita conflito entre regras mais genéricas (`ANY /users*`) e as mais específicas por método/endpoint — o fallback (`00`) tem a prioridade mais baixa e só responde quando nenhum outro mapping casa com a requisição.
 
 ### Subindo o mock isoladamente
 
+Use a imagem buildada a partir do `docker/mock.Dockerfile` deste repositório — os mappings já ficam embutidos na imagem (`COPY wiremock /home/wiremock`), sem precisar de bind-mount:
+
 ```bash
-docker run -d --name wiremock-user-service -p 8089:8080 \
-  -v "$(pwd)/wiremock:/home/wiremock" \
-  wiremock/wiremock
+docker build -f docker/mock.Dockerfile -t user-service-mock .
+
+docker run -d --name wiremock-user-service -p 8081:8080 user-service-mock
 ```
 
-Isso expõe o mock em `http://localhost:8089`. Depois, basta apontar a variável de URL do UserService do serviço sendo testado para `http://localhost:8089` e enviar o header `X-Mock-Scenario` desejado.
-
----
-
-## 🌎 Ambientes disponíveis
-
-| Ambiente               | Arquivo                       | `useMock` | Uso recomendado                                                                                                             |
-| ---------------------- | ----------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Local Mock             | `local-mock.environment.json` | `true`    | Rodar os testes localmente sem depender do AuthService/EmailService reais — também usado pela pipeline de CI do UserService |
-| Local Real Integration | `local-real.environment.json` | `false`   | Rodar os testes localmente contra os serviços reais em execução na máquina                                                  |
+Isso expõe o mock em `http://localhost:8081` (porta padrão utilizada no projeto para o UserService, já configurada no environment `local`). Depois, basta apontar a variável de URL do UserService do serviço/collection sendo testado para esse endereço e enviar o header `X-Mock-Scenario` desejado.
