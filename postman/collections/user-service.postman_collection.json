@@ -2812,149 +2812,190 @@
       ]
     },
     {
-      "name": "buscar favoritos",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
+      "name": "Favoritos",
+      "item": [
+        {
+          "name": "Buscar todos os favoritos do usuário",
+          "event": [
             {
-              "key": "token",
-              "value": "",
-              "type": "string"
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
             }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{user_service_url}}/favorites/list?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1",
-          "host": [
-            "{{user_service_url}}"
           ],
-          "path": [
-            "favorites",
-            "list"
-          ],
-          "query": [
-            {
-              "key": "userId",
-              "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "buscar favorito expecifico",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{user_service_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
-          "host": [
-            "{{user_service_url}}"
-          ],
-          "path": [
-            "favorites"
-          ],
-          "query": [
-            {
-              "key": "userId",
-              "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
             },
-            {
-              "key": "favoriteId",
-              "value": "a473df6f-e051-401c-b590-970d1297a753"
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites/list?userId={{userRecentCadastreId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                }
+              ]
             }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "New Request",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "",
-              "type": "string"
-            }
-          ]
+          },
+          "response": []
         },
-        "method": "POST",
-        "header": [],
-        "url": {
-          "raw": "{{user_service_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&eventId=8a676f03-1d78-4624-b7ad-984aeff32ce5",
-          "host": [
-            "{{user_service_url}}"
-          ],
-          "path": [
-            "favorites"
-          ],
-          "query": [
-            {
-              "key": "userId",
-              "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+        {
+          "name": "Buscar favorito específico",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
             },
-            {
-              "key": "eventId",
-              "value": "8a676f03-1d78-4624-b7ad-984aeff32ce5"
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "a473df6f-e051-401c-b590-970d1297a753"
+                }
+              ]
             }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "New Request Copy",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "",
-              "type": "string"
-            }
-          ]
+          },
+          "response": []
         },
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "{{user_service_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
-          "host": [
-            "{{user_service_url}}"
-          ],
-          "path": [
-            "favorites"
-          ],
-          "query": [
-            {
-              "key": "userId",
-              "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+        {
+          "name": "Criar favoritos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
             },
-            {
-              "key": "favoriteId",
-              "value": "a473df6f-e051-401c-b590-970d1297a753"
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_GET_EVENT"
+              },
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&eventId=8a676f03-1d78-4624-b7ad-984aeff32ce5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "eventId",
+                  "value": "8a676f03-1d78-4624-b7ad-984aeff32ce5"
+                }
+              ]
             }
-          ]
+          },
+          "response": []
+        },
+        {
+          "name": "Remover favorito",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "a473df6f-e051-401c-b590-970d1297a753"
+                }
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+            ]
+          }
+        }
+      ]
     }
   ],
   "event": [
@@ -2989,7 +3030,7 @@
           "    const response = await new Promise((resolve, reject) => {\r",
           "        pm.sendRequest(\r",
           "            {\r",
-          "                url: pm.environment.get(\"user_service_url\"),\r",
+          "                url: pm.variables.replaceIn(\"{{user_service_url}}\"),\r",
           "                method: \"POST\",\r",
           "                header: headers,\r",
           "                body: {\r",
@@ -3036,7 +3077,7 @@
           "\r",
           "    pm.sendRequest(\r",
           "        {\r",
-          "            url: `${pm.environment.get(\"user_service_url\")}?userId=${userId}`,\r",
+          "            url: pm.variables.replaceIn(\"{{user_service_url}}\"),\r",
           "            method: \"DELETE\",\r",
           "            header: {\r",
           "                \"Authorization\": `Bearer ${token}`,\r",

@@ -3,8 +3,13 @@
   "name": "CI Environment - userService",
   "values": [
     {
+      "key": "base_url",
+      "value": "http://user-service:8080",
+      "enabled": true
+    },
+    {
       "key": "user_service_url",
-      "value": "http://user-service:8080/users",
+      "value": "{{base_url}}/users",
       "enabled": true
     },
     {

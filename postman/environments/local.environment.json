@@ -3,8 +3,13 @@
   "name": "Local Environment - userService",
   "values": [
     {
+      "key": "base_url",
+      "value": "http://localhost:8081",
+      "enabled": true
+    },
+    {
       "key": "user_service_url",
-      "value": "http://localhost:8081/users",
+      "value": "{{base_url}}/users",
       "enabled": true
     },
     {
