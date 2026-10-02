@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "78e203c2-b09f-412f-b9ae-faad2b913513",
+    "_postman_id": "6c3f3b7c-b6d7-420a-98b8-970533074f26",
     "name": "userService",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "36785755",
-    "_collection_link": "https://go.postman.co/collection/36785755-78e203c2-b09f-412f-b9ae-faad2b913513?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/36785755-6c3f3b7c-b6d7-420a-98b8-970533074f26?source=collection_link"
   },
   "item": [
     {
@@ -27,7 +27,7 @@
             "method": "POST",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_LOGIN_USER"
               }
             ],
@@ -66,7 +66,7 @@
             "method": "POST",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_LOGIN_USER"
               }
             ],
@@ -985,7 +985,7 @@
             "method": "POST",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_LOGIN_USER"
               }
             ],
@@ -1301,7 +1301,7 @@
             "method": "PATCH",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Email-Scenario",
                 "value": "SUCCESS_VALIDATE_RECOVERY_CODE"
               }
             ],
@@ -1353,7 +1353,7 @@
             "method": "PATCH",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Email-Scenario",
                 "value": "SUCCESS_VALIDATE_RECOVERY_CODE"
               }
             ],
@@ -1405,7 +1405,7 @@
             "method": "PATCH",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Email-Scenario",
                 "value": "FAIL_VALIDATE_RECOVERY_CODE"
               }
             ],
@@ -1448,7 +1448,7 @@
             "method": "PATCH",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Email-Scenario",
                 "value": "FAIL_VALIDATE_RECOVERY_CODE"
               }
             ],
@@ -1620,7 +1620,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -1684,7 +1684,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -1739,7 +1739,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER"
               }
             ],
@@ -1794,7 +1794,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER"
               }
             ],
@@ -2322,7 +2322,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_ADMIN"
               }
             ],
@@ -2389,7 +2389,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_ADMIN"
               }
             ],
@@ -2456,7 +2456,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "FAIL_VALIDATE_TOKEN"
               }
             ],
@@ -2532,7 +2532,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER"
               }
             ],
@@ -2608,7 +2608,7 @@
             "method": "PUT",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_ADMIN"
               }
             ],
@@ -2680,7 +2680,7 @@
             "method": "DELETE",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -2735,7 +2735,7 @@
             "method": "DELETE",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -2790,7 +2790,7 @@
             "method": "DELETE",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -2841,7 +2841,7 @@
             "method": "GET",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -2917,11 +2917,11 @@
             "method": "POST",
             "header": [
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Event-Scenario",
                 "value": "SUCCESS_GET_EVENT"
               },
               {
-                "key": "X-Mock-Scenario",
+                "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
               }
             ],
@@ -3024,7 +3024,7 @@
           "    };\r",
           "\r",
           "    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
-          "        headers[\"x-mock-scenario\"] = scenario;\r",
+          "        headers[\"x-mock-auth-scenario\"] = scenario;\r",
           "    }\r",
           "\r",
           "    const response = await new Promise((resolve, reject) => {\r",
