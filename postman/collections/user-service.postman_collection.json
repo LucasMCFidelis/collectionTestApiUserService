@@ -2818,11 +2818,11 @@
           "name": "Buscar todos os favoritos do usuário",
           "event": [
             {
-              "listen": "prerequest",
+              "listen": "test",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  ""
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve retornar um array de favoritos\", function () {\r\n    pm.expect(pm.response.json()).to.be.an('array');\r\n});\r\n\r\npm.test(\"Cada favorito deve ter `favoriteId` e `eventFavorite`\", function () {\r\n    pm.response.json().forEach(function (favorite) {\r\n        pm.expect(favorite).to.have.all.keys('favoriteId', 'createdAt', 'eventFavorite');\r\n    });\r\n});"
                 ]
               }
             }
@@ -2843,6 +2843,10 @@
               {
                 "key": "X-Mock-Auth-Scenario",
                 "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT"
               }
             ],
             "url": {
@@ -2866,21 +2870,41 @@
         },
         {
           "name": "Buscar favorito específico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a presernça das chaves no objeto de resposta\", function () {\r\n    pm.expect(pm.response.json()).to.have.all.keys('favoriteId', 'createdAt', 'userFavoriteId', 'eventFavorite');\r\n});\r\n\r\npm.test(\"Deve validar que os valores de `userFavoriteId` e `favoriteId` são os mesmos fornecidos na requisição\", function () {\r\n    pm.expect(pm.response.json().favoriteId).to.eql(pm.collectionVariables.get(\"favoriteId\"));\r\n    pm.expect(pm.response.json().userFavoriteId).to.eql(pm.collectionVariables.get(\"userRecentCadastreId\"));\r\n});"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
               "bearer": [
                 {
                   "key": "token",
-                  "value": "",
+                  "value": "{{userRecentCadastreToken}}",
                   "type": "string"
                 }
               ]
             },
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT "
+              }
+            ],
             "url": {
-              "raw": "{{base_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&favoriteId={{favoriteId}}",
               "host": [
                 "{{base_url}}"
               ],
@@ -2890,7 +2914,60 @@
               "query": [
                 {
                   "key": "userId",
-                  "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "{{favoriteId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar favorito inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Favorito não foi encontrado\"));\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
                 },
                 {
                   "key": "favoriteId",
@@ -2903,6 +2980,26 @@
         },
         {
           "name": "Criar favoritos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade favoriteId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"favoriteId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userFavoriteId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userFavoriteId\")\r\n    pm.expect(pm.response.json().userFavoriteId).to.eq(pm.collectionVariables.get(\"userRecentCadastreId\"))\r\n});\r\n\r\npm.test(\"Deve validar a propriedade eventFavoriteId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"eventFavoriteId\")\r\n    pm.expect(pm.response.json().eventFavoriteId).to.eq(pm.collectionVariables.get(\"eventId\"))\r\n});\r\n"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"eventId\", \"8a676f03-1d78-4624-b7ad-984aeff32ce5\");"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -2926,7 +3023,7 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&eventId=8a676f03-1d78-4624-b7ad-984aeff32ce5",
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&eventId={{eventId}}",
               "host": [
                 "{{base_url}}"
               ],
@@ -2940,7 +3037,7 @@
                 },
                 {
                   "key": "eventId",
-                  "value": "8a676f03-1d78-4624-b7ad-984aeff32ce5"
+                  "value": "{{eventId}}"
                 }
               ]
             }
@@ -2948,22 +3045,51 @@
           "response": []
         },
         {
-          "name": "Remover favorito",
+          "name": "Criar favorito já adicionado a lista",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"favoriteIdDuplicate\", pm.collectionVariables.get(\"favoritedEventId\"))"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade favoriteId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"favoriteId\")\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userFavoriteId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userFavoriteId\")\r\n    pm.expect(pm.response.json().userFavoriteId).to.eq(pm.collectionVariables.get(\"userRecentCadastreId\"))\r\n});\r\n\r\npm.test(\"Deve validar a propriedade eventFavoriteId\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"eventFavoriteId\")\r\n    pm.expect(pm.response.json().eventFavoriteId).to.eq(pm.collectionVariables.get(\"favoriteIdDuplicate\"))\r\n});\r\n\r\npm.test(\"Deve validar que não foi gerado um novo favoriteId\", function () {\r\n    pm.expect(pm.response.json().favoriteId).to.eql(pm.collectionVariables.get(\"favoriteId\"))\r\n});\r\n"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
               "bearer": [
                 {
                   "key": "token",
-                  "value": "",
+                  "value": "{{userRecentCadastreToken}}",
                   "type": "string"
                 }
               ]
             },
-            "method": "DELETE",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT"
+              },
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
             "url": {
-              "raw": "{{base_url}}/favorites?userId=085bbe02-824b-4ea3-aadd-adf63feeb3d1&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&eventId={{favoriteIdDuplicate}}",
               "host": [
                 "{{base_url}}"
               ],
@@ -2973,7 +3099,117 @@
               "query": [
                 {
                   "key": "userId",
-                  "value": "085bbe02-824b-4ea3-aadd-adf63feeb3d1"
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "eventId",
+                  "value": "{{favoriteIdDuplicate}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover favorito",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Favorito excluído com sucesso\"));\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT "
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&favoriteId={{favoriteId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "{{favoriteId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover favorito inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Favorito não foi encontrado\"));\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&favoriteId=a473df6f-e051-401c-b590-970d1297a753",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
                 },
                 {
                   "key": "favoriteId",
@@ -2991,7 +3227,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()"
+              "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\nconst createFavoriteRequest = use('createFavoriteRequest');\r\n\r\ncreateSimpleUserRequest().then((data) => {\r\n    createFavoriteRequest(data.userId, \"a473df6f-e051-401c-b590-970d1297a753\", data.userToken, `SUCCESS_VALIDATE_TOKEN_USER_${data.userId}`)\r\n})\r\n"
             ]
           }
         }
@@ -3011,7 +3247,7 @@
           "\r",
           "async function createSimpleUserRequest(attempt = 1, scenario = \"SUCCESS_LOGIN_USER\", emailToCreate) {\r",
           "    const password = \"Password@123\";\r",
-          "    const email = emailToCreate ? emailToCreate : pm.variables.replaceIn(\"{{$randomEmail}}\") \r",
+          "    const email = emailToCreate ? emailToCreate : pm.variables.replaceIn(\"{{$randomEmail}}\")\r",
           "\r",
           "    if (attempt > 5) {\r",
           "        throw new Error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
@@ -3063,6 +3299,43 @@
           "\r",
           "    console.warn(`⚠ Tentativa ${attempt} falhou (status ${response.code}), tentando novamente...`);\r",
           "    return createSimpleUserRequest(attempt + 1); // recursão simples, sem envolver a Promise externa\r",
+          "}\r",
+          "\r",
+          "async function createFavoriteRequest(userId, eventId, token, scenarioAuth = \"SUCCESS_VALIDATE_TOKEN_USER\", scenarioEvent = \"SUCCESS_GET_EVENT\") {\r",
+          "    if (!eventId | !userId) {\r",
+          "        throw new Error(\"userId e eventId são obrigatóios\");\r",
+          "    }\r",
+          "\r",
+          "    const headers = {\r",
+          "        \"Authorization\": `Bearer ${token}`,\r",
+          "    };\r",
+          "\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\") {\r",
+          "        if (scenarioAuth) headers[\"x-mock-auth-scenario\"] = scenarioAuth;\r",
+          "        if (scenarioEvent) headers[\"x-mock-event-scenario\"] = scenarioEvent;\r",
+          "    }\r",
+          "\r",
+          "    const response = await new Promise((resolve, reject) => {\r",
+          "        pm.sendRequest(\r",
+          "            {\r",
+          "                url: `${pm.environment.get(\"base_url\")}/favorites?userId=${userId}&eventId=${eventId}`,\r",
+          "                method: \"POST\",\r",
+          "                header: headers,\r",
+          "            },\r",
+          "            (err, res) => {\r",
+          "                if (err) return reject(err);\r",
+          "                resolve(res);\r",
+          "            }\r",
+          "        );\r",
+          "    });\r",
+          "\r",
+          "    const json = response.json()\r",
+          "\r",
+          "    if (response.code === 200) {\r",
+          "        pm.collectionVariables.set(\"favoriteId\", json.favoriteId);\r",
+          "        pm.collectionVariables.set(\"favoritedEventId\", json.eventFavoriteId);\r",
+          "        return json;\r",
+          "    }\r",
           "}\r",
           "\r",
           "function deleteSimpleUserRequest(token, userId) {\r",
@@ -3184,6 +3457,7 @@
           "pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
           "pm.collectionVariables.set(performLogin.name, performLogin.toString());\r",
           "pm.collectionVariables.set(sendRecoveryCodeRequest.name, sendRecoveryCodeRequest.toString())\r",
+          "pm.collectionVariables.set(createFavoriteRequest.name, createFavoriteRequest.toString())\r",
           ""
         ],
         "type": "text/javascript"
@@ -3245,6 +3519,30 @@
     },
     {
       "key": "newPassword",
+      "value": ""
+    },
+    {
+      "key": "createFavoriteRequest",
+      "value": ""
+    },
+    {
+      "key": "favoriteId",
+      "value": ""
+    },
+    {
+      "key": "eventId",
+      "value": ""
+    },
+    {
+      "key": "eventFavoritedId",
+      "value": ""
+    },
+    {
+      "key": "favoritedEventId",
+      "value": ""
+    },
+    {
+      "key": "favoriteIdDuplicate",
       "value": ""
     }
   ]
