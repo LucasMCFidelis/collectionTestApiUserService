@@ -1,6 +1,6 @@
 # 👤 collectionTestApiUserService
 
-Collection do Postman para testes de integração (end-to-end) do **UserService** do projeto *Catálogo de Eventos*. A collection cobre os fluxos de **cadastro**, **edição**, **busca**, **recuperação de senha**, **permissões**, **exclusão**, incluindo cenários de sucesso, erro de validação e erros de permissão.
+Collection do Postman para testes de integração (end-to-end) do **UserService** do projeto *Catálogo de Eventos*. A collection cobre os fluxos de **cadastro**, **edição**, **busca**, **recuperação de senha**, **permissões**, **exclusão** e **favoritos**, incluindo cenários de sucesso, erro de validação e erros de permissão.
 
 ---
 
@@ -47,9 +47,9 @@ newman run postman/collections/user-service.postman_collection.json \
 
 Só existem **dois** arquivos de environment neste repositório — mantidos deliberadamente enxutos, um para cada forma de execução:
 
-| Ambiente  | Quando usar                                                                                                                                                                                                                                                                                                                                       |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Local** | Rodar a collection manualmente (Postman ou Newman), na sua máquina, contra o ambiente de teste do UserService já rodando localmente via `docker compose` (porta padrão do host — ver seção abaixo). Ideal para depurar um cenário específico sem esperar o CI.                                                                                    |
+| Ambiente  | Quando usar                                                                                                                                                                                                                                                                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Local** | Rodar a collection manualmente (Postman ou Newman), na sua máquina, contra o ambiente de teste do UserService já rodando localmente via `docker compose` (porta padrão do host — ver seção abaixo). Ideal para depurar um cenário específico sem esperar o CI.                                                                                                     |
 | **CI**    | Uso interno, automático: é o environment que o próprio `docker compose` do UserService injeta no container de testes. Os hostnames (`user-service`, `auth-service`, `email-service`) são os *aliases* de rede dos serviços dentro do Compose, não `localhost` — porta interna sempre `8080`. Normalmente você não precisa selecionar esse environment manualmente. |
 
 Os dois já vêm com `useMock="true"` e `adminEmail`/`adminPassword`/`emailDefaultToRecoveryPassword` preenchidos com credenciais fixas de mock — não é preciso configurar nada para rodar contra o ambiente de teste (mockado) do UserService, seja localmente, seja no CI.
@@ -62,16 +62,17 @@ Para que esta collection funcione corretamente no Postman, configure as seguinte
 
 ### 🌐 URLs dos serviços obrigatórios
 
-| Variável            | Descrição                                                                                     |
-| ------------------- | --------------------------------------------------------------------------------------------- |
-| `user_service_url`  | URL base do UserService sendo testado — sempre uma instância real, em qualquer um dos environments |
-| `auth_service_url`  | URL base do AuthService, usado para obter tokens de login (`performLogin`)                    |
-| `email_service_url` | URL base do EmailService, usado para gerar códigos de recuperação (`sendRecoveryCodeRequest`) |
+| Variável            | Descrição                                                                                            |
+| ------------------- | ---------------------------------------------------------------------------------------------------- |
+| `base_url`          | URL base do UserService sendo testado — sempre uma instância real, em qualquer um dos environments   |
+| `user_service_url`  | URL base do UserService complementado com o path das rotas de usuários (rotas principais do serviço) |
+| `auth_service_url`  | URL base do AuthService, usado para obter tokens de login (`performLogin`)                           |
+| `email_service_url` | URL base do EmailService, usado para gerar códigos de recuperação (`sendRecoveryCodeRequest`)        |
 
 ### 🎭 Modo de execução (mock x real)
 
-| Variável  | Descrição                                                                                                                                                          |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Variável  | Descrição                                                                                                                                                                                                                                                                                                                                                                                 |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `useMock` | `"true"`: a criação do usuário de teste continua acontecendo de verdade no UserService (só ganha o header `x-mock-scenario`), mas a remoção ao final é pulada; as chamadas a `auth_service_url`/`email_service_url` enviam `x-mock-scenario` para acionar os respectivos mocks. `"false"`: roda a integração real ponta a ponta, sem headers de mock, e remove o usuário criado ao final. |
 
 ### 👤 Credenciais e e-mails fixos
@@ -123,7 +124,7 @@ Todos os requests validam o status HTTP retornado e o conteúdo da resposta (cor
 
 ### 📂 Cadastro campo: telefone
 | Cenário                                                   | Retorno esperado              |
-| --------------------------------------------------------- | ------------------------------ |
+| --------------------------------------------------------- | ----------------------------- |
 | Tipo inválido / menor que o esperado / maior que o limite | `400`                         |
 | Sem passar o telefone                                     | `201` *(telefone é opcional)* |
 
@@ -176,10 +177,23 @@ Todos os requests validam o status HTTP retornado e o conteúdo da resposta (cor
 
 ### 📂 Deletar usuário (`DELETE {{user_service_url}}?userId=...`)
 | Cenário                                            | Retorno esperado |
-| --------------------------------------------------- | ---------------- |
+| -------------------------------------------------- | ---------------- |
 | Deletar usuário existente (usando o próprio token) | `200`            |
 | Deletar com id diferente do usuário logado         | `403`            |
 | Deletar sem informar ID                            | `400`            |
+
+### 📂 Favoritos (`{{base_url}}/favorites`)
+Antes de cada request da pasta, um pre-request cria um usuário de teste e um favorito para ele (preenchendo `favoriteId` e `favoritedEventId`). Os requests enviam o token do usuário e os headers `X-Mock-Auth-Scenario` / `X-Mock-Event-Scenario` para acionar os mocks de autenticação e de eventos.
+
+| Cenário                              | Requisição                                    | O que valida                                                                                          | Retorno esperado |
+| ------------------------------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------- |
+| Buscar todos os favoritos do usuário | `GET /favorites/list?userId=...`              | Resposta é um array e cada favorito possui `favoriteId`, `createdAt` e `eventFavorite`                | `200`            |
+| Buscar favorito específico           | `GET /favorites?userId=...&favoriteId=...`    | Objeto com `favoriteId`, `createdAt`, `userFavoriteId` e `eventFavorite`, com IDs iguais aos enviados | `200`            |
+| Buscar favorito inexistente          | `GET /favorites?userId=...&favoriteId=...`    | `message` "Favorito não foi encontrado"                                                               | `404`            |
+| Criar favorito                       | `POST /favorites?userId=...&eventId=...`      | Retorna `favoriteId`, `userFavoriteId` e `eventFavoriteId`, com IDs iguais aos enviados               | `200`            |
+| Criar favorito já adicionado à lista | `POST /favorites?userId=...&eventId=...`      | Operação idempotente: retorna o favorito existente, sem gerar um novo `favoriteId`                    | `200`            |
+| Remover favorito                     | `DELETE /favorites?userId=...&favoriteId=...` | `message` "Favorito excluído com sucesso"                                                             | `200`            |
+| Remover favorito inexistente         | `DELETE /favorites?userId=...&favoriteId=...` | `message` "Favorito não foi encontrado"                                                               | `404`            |
 
 ---
 
