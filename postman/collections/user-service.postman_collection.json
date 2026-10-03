@@ -2926,6 +2926,129 @@
           "response": []
         },
         {
+          "name": "Buscar favorito sem autenticação",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Erro de autenticação\").toLowerCase());\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT "
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&favoriteId={{favoriteId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "{{favoriteId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar favorito específico de um outro usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 403\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Acesso negado. O ID do usuário logado não corresponde ao ID solicitado para a operação\").toLowerCase());\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\npm.collectionVariables.set(\"userOldCadastreId\", pm.collectionVariables.get(\"userRecentCadastreId\"))\r\n\r\ncreateSimpleUserRequest()\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT "
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userOldCadastreId}}&favoriteId={{favoriteId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userOldCadastreId}}"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "{{favoriteId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Buscar favorito inexistente",
           "event": [
             {
@@ -3034,6 +3157,138 @@
                 {
                   "key": "userId",
                   "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Criar favoritos sem autenticação",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Erro de autenticação\").toLowerCase());\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"eventId\", \"8a676f03-1d78-4624-b7ad-984aeff32ce5\");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT"
+              },
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&eventId={{eventId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Criar favoritos com id de outro usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 403\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Acesso negado. O ID do usuário logado não corresponde ao ID solicitado para a operação\").toLowerCase());\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"eventId\", \"8a676f03-1d78-4624-b7ad-984aeff32ce5\");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT"
+              },
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userOldCadastreId}}&eventId={{eventId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userOldCadastreId}}"
                 },
                 {
                   "key": "eventId",
@@ -3157,6 +3412,129 @@
                 {
                   "key": "userId",
                   "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "{{favoriteId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover favorito sem autenticação",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Erro de autenticação\").toLowerCase());\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT "
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userRecentCadastreId}}&favoriteId={{favoriteId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userRecentCadastreId}}"
+                },
+                {
+                  "key": "favoriteId",
+                  "value": "{{favoriteId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover favorito de outro usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 403\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text()).to.include((\"Acesso negado. O ID do usuário logado não corresponde ao ID solicitado para a operação\").toLowerCase());\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\npm.collectionVariables.set(\"userOldCadastreId\", pm.collectionVariables.get(\"userRecentCadastreId\"))\r\n\r\ncreateSimpleUserRequest()\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Mock-Auth-Scenario",
+                "value": "SUCCESS_VALIDATE_TOKEN_USER_{{userRecentCadastreId}}"
+              },
+              {
+                "key": "X-Mock-Event-Scenario",
+                "value": "SUCCESS_GET_EVENT "
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/favorites?userId={{userOldCadastreId}}&favoriteId={{favoriteId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userOldCadastreId}}"
                 },
                 {
                   "key": "favoriteId",
@@ -3543,6 +3921,10 @@
     },
     {
       "key": "favoriteIdDuplicate",
+      "value": ""
+    },
+    {
+      "key": "userOldCadastreId",
       "value": ""
     }
   ]
